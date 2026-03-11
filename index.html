@@ -11,37 +11,35 @@
         .veg-dot { border: 1px solid #0f8a45; padding: 2px; display: inline-block; width: 12px; height: 12px; position: relative; }
         .veg-dot::after { content: ''; background: #0f8a45; width: 6px; height: 6px; border-radius: 50%; position: absolute; top: 2px; left: 2px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
         .page-transition { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .slide-up { transform: translateY(0); opacity: 1; display: flex !important; }
         .slide-up-hidden { transform: translateY(50px); opacity: 0; display: none; }
         .slide-right { transform: translateX(0); opacity: 1; display: flex !important; }
         .slide-right-hidden { transform: translateX(100%); opacity: 0; display: none; }
+        .payment-active { border-color: #dc2626 !important; background: rgba(220, 38, 38, 0.1) !important; }
     </style>
 </head>
 <body class="bg-[#0f0f0f] text-white font-sans antialiased overflow-x-hidden">
 
     <div id="launch-screen" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center transition-opacity duration-1000">
-        <div class="relative bg-zinc-900 rounded-full p-12 border border-white/5 shadow-2xl animate-pulse">
+        <div class="relative bg-zinc-900 rounded-full p-12 border border-white/5 animate-pulse shadow-2xl">
             <span class="text-7xl">🙏</span>
         </div>
         <p class="mt-12 text-zinc-500 font-bold tracking-[0.4em] text-[10px] uppercase italic">Welcome to Datta Dash</p>
     </div>
 
-    <div id="restaurant-selector" class="hidden min-h-screen p-6 flex-col items-center page-transition slide-up-hidden">
+    <div id="restaurant-selector" class="hidden min-h-screen p-6 flex flex-col items-center page-transition slide-up-hidden">
         <h1 class="text-3xl font-black italic text-red-600 tracking-tighter mb-4 mt-8 uppercase underline decoration-zinc-800">DINE-DASH</h1>
         <div id="city-badge" class="bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800 text-[9px] font-black uppercase tracking-widest text-zinc-400 mb-10 flex items-center gap-2">
             <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> Detecting City...
         </div>
 
-        <div id="mathura-list" class="w-full max-w-sm space-y-6">
-            <div onclick="openRestaurant()" class="bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl cursor-pointer active:scale-95 transition-transform">
-                <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter">TBC</h2></div>
-                <div class="p-6 text-center">
-                    <h3 class="text-lg font-bold uppercase italic text-white">TBC Restaurant</h3>
-                    <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Near GLA Gate No. 1</p>
-                    <div class="flex justify-center gap-4 text-[9px] font-black uppercase tracking-widest italic"><span class="text-green-500">Open Now</span><span class="text-red-500">Free Delivery</span></div>
-                </div>
+        <div onclick="openRestaurant()" class="w-full max-w-sm bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl cursor-pointer active:scale-95 transition-transform">
+            <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter">TBC</h2></div>
+            <div class="p-6 text-center">
+                <h3 class="text-lg font-bold uppercase italic text-white">TBC Restaurant</h3>
+                <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Near GLA Gate No. 1</p>
+                <div class="flex justify-center gap-4 text-[9px] font-black uppercase tracking-widest italic"><span class="text-green-500">Open Now</span><span class="text-red-500">Free Delivery</span></div>
             </div>
         </div>
     </div>
@@ -77,11 +75,18 @@
     </div>
 
     <div id="cart-ui" class="fixed inset-0 bg-[#0a0a0a] z-[2100] hidden flex-col p-8 transition-all duration-300 transform translate-y-full opacity-0">
-        <div class="flex justify-between items-center mb-10 border-b border-zinc-900 pb-6"><h2 class="text-4xl font-black italic text-red-600 uppercase">My Cart</h2><button onclick="toggleCart()" class="bg-zinc-900 p-3 rounded-2xl border border-zinc-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+        <div class="flex justify-between items-center mb-8 border-b border-zinc-900 pb-4"><h2 class="text-4xl font-black italic text-red-600 uppercase">My Order</h2><button onclick="toggleCart()" class="bg-zinc-900 p-3 rounded-2xl border border-zinc-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
         <div id="cart-items" class="flex-grow overflow-y-auto space-y-4 no-scrollbar"></div>
-        <div class="mt-auto pt-8 border-t border-zinc-900">
-            <div class="flex justify-between items-end mb-8"><button onclick="clearCart()" class="text-[10px] font-black text-zinc-700 uppercase underline">Clear</button><span id="total" class="text-4xl font-black italic text-red-600">₹0</span></div>
-            <div class="bg-zinc-900 rounded-[2rem] p-6 mb-6 border border-zinc-800 text-center"><p class="text-[9px] text-zinc-500 uppercase font-black tracking-widest mb-3 italic">GPS Tracking Active ✓</p><input type="text" id="room" placeholder="EX: C-204" class="w-full bg-transparent border-none text-2xl font-black text-red-600 text-center uppercase outline-none tracking-widest"></div>
+        
+        <div class="mt-auto pt-6 border-t border-zinc-900">
+            <p class="text-[9px] text-zinc-500 uppercase font-black tracking-widest mb-3 text-center">Select Payment Mode</p>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <button onclick="setPayment('Online')" id="pay-online" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">Online Payment</button>
+                <button onclick="setPayment('COD')" id="pay-cod" class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">Cash on Delivery</button>
+            </div>
+
+            <div class="flex justify-between items-end mb-6"><button onclick="clearCart()" class="text-[10px] font-black text-zinc-700 uppercase underline">Clear</button><span id="total" class="text-4xl font-black italic text-red-600">₹0</span></div>
+            <div class="bg-zinc-900 rounded-[2rem] p-6 mb-6 border border-zinc-800 text-center"><p class="text-[9px] text-zinc-500 uppercase font-black tracking-widest mb-2 italic">GPS Tracking Active ✓</p><input type="text" id="room" placeholder="EX: C-204 (ROOM)" class="w-full bg-transparent border-none text-2xl font-black text-white text-center uppercase outline-none tracking-widest"></div>
             <button onclick="sendOrder()" class="w-full bg-red-600 py-6 rounded-3xl font-black text-xl uppercase shadow-2xl shadow-red-900/40 active:scale-95 transition-transform">Confirm Order</button>
         </div>
     </div>
@@ -89,7 +94,7 @@
     <script>
         const menuData = {
             veg: [
-                { name: "Delux Thali", price: 180, cat: "Meal" }, { name: "TBC Special Thali", price: 250, cat: "Meal" },
+                { name: "Delux Thali (Meal)", price: 180, cat: "Thali" }, { name: "TBC Special Thali", price: 250, cat: "Thali" },
                 { name: "Matar Paneer", price: 190, cat: "Paneer" }, { name: "Paneer Tikka Masala", price: 230, cat: "Paneer" },
                 { name: "Kadhai Paneer", price: 220, cat: "Paneer" }, { name: "Dal Makhani", price: 200, cat: "Dal" },
                 { name: "Soya Malai Chaap Gravy", price: 210, cat: "Chaap" }, { name: "Veg. Biryani", price: 150, cat: "Rice" },
@@ -112,7 +117,7 @@
             beverages: [{ name: "Kitkat Shake", price: 130 }, { name: "Oreo Shake", price: 130 }, { name: "Cold Coffee", price: 100 }, { name: "Virgin Mojito", price: 100 }]
         };
 
-        let cart = []; let userLocation = "";
+        let cart = []; let userLocation = ""; let paymentMode = "";
 
         window.onload = () => {
             if (navigator.geolocation) {
@@ -132,6 +137,13 @@
                 }, 1000);
             }, 4000);
         };
+
+        function setPayment(mode) {
+            paymentMode = mode;
+            document.getElementById('pay-online').classList.remove('payment-active');
+            document.getElementById('pay-cod').classList.remove('payment-active');
+            document.getElementById(mode === 'Online' ? 'pay-online' : 'pay-cod').classList.add('payment-active');
+        }
 
         function openRestaurant() {
             const app = document.getElementById('menu-app');
@@ -186,17 +198,4 @@
             box.innerHTML += `<div class="bg-red-600 p-5 rounded-3xl rounded-tr-none text-right font-black text-[10px] ml-14 italic uppercase text-white shadow-lg mb-4">${input}</div>`;
             let reply = "Checking menu... ask about thalis or our chicken varieties!";
             if(input.includes("chicken")) reply = "Butter Chicken starts at ₹180 (Qtr). Plates go up to ₹550.";
-            if(input.includes("time")) reply = "Delivery in 20 minutes to GLA Gate No. 1!";
-            setTimeout(() => { box.innerHTML += `<div class="bg-zinc-900 p-6 rounded-3xl rounded-tl-none border border-zinc-800 mr-14 text-zinc-300 italic uppercase font-bold text-[10px] tracking-widest text-red-600 mb-4">AI: ${reply}</div>`; box.scrollTop = box.scrollHeight; const m = new SpeechSynthesisUtterance(); m.text = reply; window.speechSynthesis.speak(m); }, 600);
-            document.getElementById('ai-input').value = "";
-        }
-
-        function sendOrder() {
-            const room = document.getElementById('room').value || "GPS Tracking";
-            if(cart.length === 0) return alert("Empty Order!");
-            const text = encodeURIComponent(`*ORDER: DATTA DASH*\nLocation: ${userLocation}\nRoom: ${room}\nItems: ${cart.map(i => i.name).join(', ')}\nTotal: ₹${cart.reduce((s, i) => s + i.price, 0)}\nFrom: TBC Restaurant`);
-            window.location.href = `https://wa.me/919346825634?text=${text}`;
-        }
-    </script>
-</body>
-</html>
+            if(input.includes("time")) reply
