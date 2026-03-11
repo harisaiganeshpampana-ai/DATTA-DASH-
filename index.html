@@ -13,196 +13,156 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-[#0f0f0f] text-white font-sans overflow-x-hidden">
+<body class="bg-[#f4f4f6] text-zinc-900 font-sans">
 
-    <div id="launch-screen" class="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative group cursor-pointer" onclick="launchApp()">
-            <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-orange-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-            <div class="relative bg-black rounded-full p-8 border border-white/10">
-                <h1 class="text-6xl font-black text-red-600 italic tracking-tighter">TBC</h1>
-            </div>
+    <div id="splash" class="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center transition-all duration-700" onclick="launch()">
+        <div class="bg-red-600 w-32 h-32 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(220,38,38,0.5)] animate-pulse">
+            <h1 class="text-4xl font-black text-white italic">TBC</h1>
         </div>
-        <p class="mt-8 text-zinc-500 font-bold tracking-[0.4em] text-[10px] animate-bounce">TAP TO START</p>
+        <p class="mt-8 text-white font-bold tracking-[0.3em] text-[10px]">TAP TO EXPLORE MENU</p>
     </div>
 
-    <div id="main-app" class="opacity-0 transition-opacity duration-1000">
-        <header class="bg-[#1a1a1a]/95 backdrop-blur-md p-5 sticky top-0 z-50 border-b border-red-900/20">
+    <div id="app" class="hidden">
+        <header class="bg-white p-4 sticky top-0 z-50 shadow-sm border-b">
             <div class="flex justify-between items-center max-w-xl mx-auto">
                 <div>
-                    <h1 class="text-2xl font-black text-red-600 tracking-tighter leading-none">DATTA DASH</h1>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <p class="text-[9px] text-green-500 uppercase font-black tracking-widest">Always Open • 24/7 Service</p>
-                    </div>
+                    <h1 class="text-xl font-black text-red-600 tracking-tighter">DATTA DASH</h1>
+                    <p class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">GLA Gate No.1 • 24H Service</p>
                 </div>
-                <div class="flex gap-3">
-                    <button onclick="toggleAI()" class="p-2.5 bg-zinc-800 rounded-full border border-zinc-700">
-                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
-                    </button>
-                    <button onclick="toggleCart()" class="p-2.5 bg-red-600 rounded-full shadow-lg relative active:scale-90 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                        <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-black px-1.5 rounded-full">0</span>
-                    </button>
-                </div>
+                <button onclick="toggleCart()" class="relative bg-zinc-100 p-2.5 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+                </button>
             </div>
         </header>
 
-        <nav class="bg-[#0f0f0f] sticky top-[77px] z-40 border-b border-zinc-800 py-3">
-            <div class="flex gap-6 px-6 overflow-x-auto no-scrollbar max-w-xl mx-auto whitespace-nowrap text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
-                <button onclick="scrollToSection('veg')" class="focus:text-red-500 transition">Veg</button>
-                <button onclick="scrollToSection('non-veg')" class="focus:text-red-500 transition">Non-Veg</button>
-                <button onclick="scrollToSection('breads')" class="focus:text-red-500 transition">Roti</button>
-                <button onclick="scrollToSection('chinese')" class="focus:text-red-500 transition">Chinese</button>
+        <div class="bg-white py-4 overflow-x-auto no-scrollbar flex gap-6 px-4 border-b">
+            <div onclick="filter('veg')" class="flex flex-col items-center gap-1 min-w-[70px]">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200" class="w-14 h-14 rounded-full object-cover border-2 border-green-500 p-0.5">
+                <span class="text-[10px] font-bold">VEG</span>
             </div>
-        </nav>
+            <div onclick="filter('nonveg')" class="flex flex-col items-center gap-1 min-w-[70px]">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=200" class="w-14 h-14 rounded-full object-cover border-2 border-red-500 p-0.5">
+                <span class="text-[10px] font-bold">NON-VEG</span>
+            </div>
+            <div onclick="filter('bread')" class="flex flex-col items-center gap-1 min-w-[70px]">
+                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=200" class="w-14 h-14 rounded-full object-cover border-2 border-amber-500 p-0.5">
+                <span class="text-[10px] font-bold">ROTI</span>
+            </div>
+        </div>
 
-        <main class="p-4 max-w-xl mx-auto space-y-12 pb-32">
-            <section id="veg"><h2 class="text-[10px] font-black text-green-500 mb-6 tracking-[0.3em] uppercase">Vegetarian</h2><div class="grid gap-4" id="veg-items"></div></section>
-            <section id="non-veg"><h2 class="text-[10px] font-black text-red-500 mb-6 tracking-[0.3em] uppercase">Non-Vegetarian</h2><div class="grid gap-4" id="nonveg-items"></div></section>
-            <section id="breads"><h2 class="text-[10px] font-black text-amber-500 mb-6 tracking-[0.3em] uppercase">Breads</h2><div class="grid gap-4" id="bread-items"></div></section>
+        <main class="p-4 max-w-xl mx-auto space-y-8 pb-32">
+            <section id="menu-section">
+                <h2 id="section-title" class="text-lg font-black italic mb-4 text-zinc-800">RECOMMENDED FOR YOU</h2>
+                <div id="items-grid" class="grid gap-6"></div>
+            </section>
         </main>
     </div>
 
-    <div id="cart-ui" class="fixed inset-0 bg-black z-[100] hidden flex flex-col p-6 overflow-hidden">
-        <div class="flex justify-between items-end mb-8 border-b border-zinc-800 pb-4">
-            <div>
-                <h2 class="text-4xl font-black italic tracking-tighter text-red-600">MY CART</h2>
-                <p class="text-[10px] text-zinc-500 font-bold uppercase mt-1">Review your order</p>
+    <div id="cart-ui" class="fixed inset-0 bg-white z-[100] hidden flex flex-col p-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-black tracking-tighter uppercase">Your Order</h2>
+            <button onclick="toggleCart()" class="text-zinc-400 font-bold text-xs">CLOSE</button>
+        </div>
+        <div id="cart-list" class="flex-grow overflow-y-auto space-y-4"></div>
+        <div class="mt-auto pt-6 border-t">
+            <div class="bg-zinc-100 p-4 rounded-xl mb-4">
+                <input type="text" id="room" placeholder="Hostel Room Number" class="w-full bg-transparent font-bold text-lg outline-none uppercase">
             </div>
-            <button onclick="toggleCart()" class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-        </div>
-        
-        <div id="cart-items-container" class="flex-grow overflow-y-auto space-y-4 pr-2 no-scrollbar"></div>
-
-        <div class="mt-auto pt-6 border-t border-zinc-800">
-            <div class="flex justify-between mb-4">
-                <button onclick="clearCart()" class="text-[10px] font-black text-zinc-500 uppercase tracking-widest hover:text-red-500">Empty Cart</button>
-                <span id="total" class="text-3xl font-black italic tracking-tighter">₹0</span>
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-bold">Total Bill</span>
+                <span id="total" class="text-2xl font-black text-red-600 tracking-tighter">₹0</span>
             </div>
-            <div class="bg-zinc-900 rounded-2xl p-5 mb-6 border border-zinc-800">
-                <label class="text-[9px] text-zinc-500 uppercase font-black tracking-widest mb-2 block">Hostel Room Number</label>
-                <input type="text" id="room" placeholder="Ex: C-204" class="w-full bg-transparent border-none text-2xl font-black text-red-500 focus:ring-0 placeholder:text-zinc-800 p-0 uppercase">
-            </div>
-            <button onclick="sendOrder()" class="w-full bg-red-600 py-6 rounded-2xl font-black text-xl shadow-2xl shadow-red-900/40 active:scale-95 transition uppercase italic tracking-tighter">Confirm & Order via WhatsApp</button>
-        </div>
-    </div>
-
-    <div id="ai-ui" class="fixed inset-0 bg-black/98 z-[150] hidden flex flex-col p-8">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="text-3xl font-black italic text-red-600 tracking-tighter">DASH AI</h2>
-            <button onclick="toggleAI()" class="text-zinc-600 font-black uppercase text-[10px] tracking-widest">Exit</button>
-        </div>
-        <div id="ai-messages" class="flex-grow overflow-y-auto space-y-6 mb-6 text-sm no-scrollbar">
-            <div class="bg-zinc-900 p-5 rounded-2xl rounded-tl-none border border-zinc-800 leading-relaxed text-zinc-300">Welcome to Datta Dash! I'm your AI assistant for TBC Restaurant. Ask me about prices, portions, or delivery!</div>
-        </div>
-        <div class="flex gap-3 bg-zinc-900 p-2 rounded-2xl border border-zinc-800">
-            <input type="text" id="ai-input" placeholder="Type a question..." class="flex-grow bg-transparent p-4 outline-none font-bold text-sm">
-            <button onclick="askAI()" class="bg-red-600 px-6 rounded-xl font-black text-xs">SEND</button>
+            <button onclick="send()" class="w-full bg-red-600 text-white py-5 rounded-2xl font-black text-lg shadow-lg shadow-red-200 uppercase tracking-tighter">Place Order</button>
         </div>
     </div>
 
     <script>
-        const menu = {
+        const db = {
             veg: [
-                { name: "Matar Paneer", price: 190, cat: "Special" },
-                { name: "Paneer Tikka Butter Masala", price: 230, cat: "Spicy" },
-                { name: "Kadhai Paneer", price: 220, cat: "Spicy" },
-                { name: "Dal Makhani", price: 200, cat: "Classic" },
-                { name: "Malai Kofta", price: 220, cat: "Creamy" }
+                { name: "Matar Paneer", price: 190, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500", type: "veg" },
+                { name: "Paneer Tikka Masala", price: 230, img: "https://images.unsplash.com/photo-1596797038583-1c198f4ef7c8?w=500", type: "veg" },
+                { name: "Dal Makhani", price: 200, img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500", type: "veg" }
             ],
             nonveg: [
-                { name: "Butter Chicken", sizes: { "Qtr": 180, "Half": 300, "Full": 550 } },
-                { name: "Kadai Chicken", sizes: { "Qtr": 180, "Half": 300, "Full": 550 } },
-                { name: "Chicken Changezi", sizes: { "Qtr": 180, "Half": 300, "Full": 550 } },
-                { name: "Chicken Biryani", price: 220 }
+                { name: "Butter Chicken", price: 180, img: "https://images.unsplash.com/photo-1603894584114-10651e704104?w=500", type: "nonveg", multi: true },
+                { name: "Chicken Changezi", price: 180, img: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=500", type: "nonveg", multi: true },
+                { name: "Chicken Biryani", price: 220, img: "https://images.unsplash.com/photo-1563379091339-03b21bc4a4f8?w=500", type: "nonveg" }
             ],
-            breads: [
-                { name: "Tawa Roti", price: 12 },
-                { name: "Butter Roti", price: 14 },
-                { name: "Lachha Paratha", price: 35 },
-                { name: "Butter Naan", price: 35 }
+            bread: [
+                { name: "Butter Naan", price: 35, img: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=500", type: "veg" },
+                { name: "Lachha Paratha", price: 35, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380ee2?w=500", type: "veg" }
             ]
         };
 
         let cart = [];
 
-        function launchApp() {
-            document.getElementById('launch-screen').style.opacity = '0';
+        function launch() {
+            document.getElementById('splash').style.opacity = '0';
             setTimeout(() => {
-                document.getElementById('launch-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('opacity-0');
-            }, 700);
+                document.getElementById('splash').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                filter('veg');
+            }, 500);
         }
 
-        function renderMenu() {
-            document.getElementById('veg-items').innerHTML = menu.veg.map(i => `
-                <div class="bg-[#1a1a1a] p-5 rounded-[2rem] border border-zinc-800 flex justify-between items-center active:scale-95 transition">
-                    <div><div class="veg-dot mb-1"></div><h3 class="font-black text-sm tracking-tight">${i.name}</h3><p class="text-zinc-600 text-[9px] font-bold uppercase tracking-widest">${i.cat}</p></div>
-                    <div class="flex items-center gap-4"><span class="font-black text-red-600 italic">₹${i.price}</span><button onclick="add('${i.name}', ${i.price})" class="bg-zinc-800 h-10 w-10 rounded-full flex items-center justify-center font-black text-[10px] border border-zinc-700">+</button></div>
-                </div>`).join('');
-
-            document.getElementById('nonveg-items').innerHTML = menu.nonveg.map(i => `
-                <div class="bg-[#1a1a1a] p-6 rounded-[2.5rem] border border-zinc-800">
-                    <div class="nonveg-dot mb-3"></div><h3 class="font-black text-md mb-4 italic tracking-tight uppercase">${i.name}</h3>
-                    <div class="flex gap-2">
-                        ${i.sizes ? Object.entries(i.sizes).map(([s, p]) => `
-                            <button onclick="add('${i.name} (${s})', ${p})" class="flex-grow bg-zinc-900/80 border border-zinc-800 p-3 rounded-2xl text-[9px] font-black uppercase transition active:bg-red-600">
-                                ${s}<br><span class="text-red-600">₹${p}</span>
-                            </button>`).join('') : `<button onclick="add('${i.name}', ${i.price})" class="w-full bg-zinc-900 border border-zinc-800 p-3 rounded-2xl font-black text-red-600">ADD ₹${i.price}</button>`}
+        function filter(type) {
+            const list = db[type];
+            document.getElementById('section-title').innerText = type.toUpperCase() + " SELECTION";
+            document.getElementById('items-grid').innerHTML = list.map((i, idx) => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-zinc-100">
+                    <img src="${i.img}" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <div class="${i.type == 'veg' ? 'veg-dot' : 'nonveg-dot'} mb-2"></div>
+                                <h3 class="font-black text-lg tracking-tight uppercase">${i.name}</h3>
+                            </div>
+                            <span class="text-red-600 font-black italic">₹${i.price}</span>
+                        </div>
+                        <p class="text-[10px] text-zinc-400 font-bold mb-4 uppercase">Direct from TBC Kitchen • 20 Mins</p>
+                        ${i.multi ? `
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="add('${i.name} (Qtr)', 180)" class="bg-zinc-100 py-3 rounded-xl font-bold text-[10px]">QTR</button>
+                                <button onclick="add('${i.name} (Half)', 300)" class="bg-zinc-100 py-3 rounded-xl font-bold text-[10px]">HALF</button>
+                                <button onclick="add('${i.name} (Full)', 550)" class="bg-zinc-100 py-3 rounded-xl font-bold text-[10px]">FULL</button>
+                            </div>
+                        ` : `
+                            <button onclick="add('${i.name}', ${i.price})" class="w-full bg-red-600 text-white py-3 rounded-2xl font-black uppercase text-xs">Add to Cart</button>
+                        `}
                     </div>
                 </div>`).join('');
-
-            document.getElementById('bread-items').innerHTML = menu.breads.map(i => `
-                <div class="bg-[#1a1a1a] p-4 rounded-2xl border border-zinc-800 flex justify-between items-center">
-                    <h3 class="font-bold text-[11px] uppercase tracking-widest">${i.name}</h3>
-                    <div class="flex items-center gap-4"><span class="text-zinc-500 font-bold text-xs">₹${i.price}</span><button onclick="add('${i.name}', ${i.price})" class="bg-zinc-800 px-4 py-2 rounded-xl text-[9px] font-black">ADD</button></div>
-                </div>`).join('');
         }
 
-        function add(name, price) { cart.push({name, price}); updateCart(); }
-        function remove(idx) { cart.splice(idx, 1); updateCart(); }
-        function clearCart() { if(confirm("Clear your whole order?")) { cart = []; updateCart(); } }
+        function add(name, price) {
+            cart.push({name, price});
+            update();
+        }
 
-        function updateCart() {
+        function remove(idx) {
+            cart.splice(idx, 1);
+            update();
+        }
+
+        function update() {
             document.getElementById('cart-count').innerText = cart.length;
             document.getElementById('total').innerText = '₹' + cart.reduce((s, i) => s + i.price, 0);
-            document.getElementById('cart-items-container').innerHTML = cart.map((i, idx) => `
-                <div class="flex justify-between items-center bg-zinc-900/50 p-5 rounded-[1.5rem] border border-zinc-800">
-                    <div><span class="font-black text-xs tracking-tight uppercase">${i.name}</span><br><span class="text-red-600 font-black italic text-xs">₹${i.price}</span></div>
-                    <button onclick="remove(${idx})" class="p-2 text-zinc-700 hover:text-red-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+            document.getElementById('cart-list').innerHTML = cart.map((i, idx) => `
+                <div class="flex justify-between items-center bg-zinc-50 p-4 rounded-2xl border">
+                    <div><p class="font-black text-xs uppercase">${i.name}</p><p class="text-red-600 font-bold text-sm">₹${i.price}</p></div>
+                    <button onclick="remove(${idx})" class="text-zinc-300 font-bold text-[10px]">REMOVE</button>
                 </div>`).join('');
         }
 
         function toggleCart() { document.getElementById('cart-ui').classList.toggle('hidden'); }
-        function toggleAI() { document.getElementById('ai-ui').classList.toggle('hidden'); }
 
-        function askAI() {
-            const input = document.getElementById('ai-input').value.toLowerCase();
-            const box = document.getElementById('ai-messages');
-            if(!input) return;
-            box.innerHTML += `<div class="bg-red-600 p-4 rounded-2xl rounded-tr-none text-right font-black text-xs ml-12 italic uppercase tracking-tighter">${input}</div>`;
-            let reply = "I'm checking the TBC menu... ask about chicken, portions, or delivery time!";
-            if(input.includes("chicken")) reply = "Our Butter Chicken and Kadai Chicken are bestsellers! Quarter starts at ₹180, Half is ₹300, and Full is ₹550.";
-            if(input.includes("time") || input.includes("delivery")) reply = "We deliver to GLA Gate No. 1 within 20 minutes, 24 hours a day!";
-            if(input.includes("paneer")) reply = "We have Matar Paneer (₹190), Kadhai Paneer (₹220), and Paneer Tikka Butter Masala (₹230)!";
-            setTimeout(() => { box.innerHTML += `<div class="bg-zinc-900 p-5 rounded-2xl rounded-tl-none border border-zinc-800 mr-12 text-zinc-300 leading-relaxed">${reply}</div>`; box.scrollTop = box.scrollHeight; }, 600);
-            document.getElementById('ai-input').value = "";
-        }
-
-        function sendOrder() {
+        function send() {
             const room = document.getElementById('room').value;
-            if(!room) return alert("Hostel room number is required!");
-            if(cart.length === 0) return alert("Cart is empty!");
+            if(!room) return alert("Room number required!");
             const total = cart.reduce((s, i) => s + i.price, 0);
-            const items = cart.map(i => i.name).join(', ');
-            const text = encodeURIComponent(`*DATTA DASH ORDER*\n------------------\n*Room:* ${room}\n*Items:* ${items}\n*Total:* ₹${total}\n------------------\n_Please confirm!_`);
+            const text = encodeURIComponent(`*NEW ORDER FROM DATTA DASH*\nRoom: ${room}\nItems: ${cart.map(i => i.name).join(', ')}\nTotal: ₹${total}`);
             window.location.href = `https://wa.me/917088832255?text=${text}`;
         }
-
-        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-        renderMenu();
     </script>
 </body>
 </html>
