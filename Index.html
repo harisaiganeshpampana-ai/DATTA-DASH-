@@ -1,0 +1,225 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATTA DASH | Premium Ordering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .veg-dot { border: 1px solid #0f8a10; padding: 2px; display: inline-block; width: 12px; height: 12px; }
+        .veg-dot div { background: #0f8a10; width: 100%; height: 100%; border-radius: 50%; }
+        .nonveg-dot { border: 1px solid #bd1a1a; padding: 2px; display: inline-block; width: 12px; height: 12px; }
+        .nonveg-dot div { background: #bd1a1a; width: 100%; height: 100%; border-radius: 50%; }
+        
+        /* NUCLEAR FIX TO HIDE ALL CODESANDBOX OVERLAYS */
+        #codesandbox-hint, .codesandbox-button, [class*="SandboxButton"], iframe {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    </style>
+</head>
+<body class="bg-[#0f0f0f] text-white font-sans" onload="requestLocation()">
+
+    <header class="bg-[#1a1a1a] p-4 sticky top-0 z-50 shadow-lg border-b border-gray-800">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black italic text-red-500 tracking-tighter uppercase leading-none">DATTA DASH</h1>
+                <p id="loc-text" class="text-[9px] font-bold text-gray-500 mt-1 uppercase tracking-widest">📍 Detecting Location...</p>
+            </div>
+            <button id="back-btn" onclick="showHome()" class="hidden text-[10px] font-black bg-gray-800 px-4 py-2 rounded-full border border-gray-700 uppercase">← Back</button>
+        </div>
+    </header>
+
+    <div id="home-screen" class="p-4 space-y-4">
+        <div class="bg-[#1e1414] p-4 rounded-2xl border border-red-900/30 text-center">
+            <p class="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1">Order Timings</p>
+            <p class="text-base font-bold text-gray-200">10:00 AM — 10:00 PM</p>
+        </div>
+
+        <h2 class="text-xs font-black text-gray-500 uppercase tracking-widest mt-6">Select Restaurant</h2>
+        
+        <div class="bg-[#1a1a1a] rounded-3xl border border-gray-800 overflow-hidden shadow-2xl">
+            <div onclick="openRestaurant()" class="h-40 bg-red-900 flex items-center justify-center cursor-pointer">
+                <span class="text-white text-5xl font-black italic uppercase tracking-tighter">TBC</span>
+            </div>
+            <div class="p-5">
+                <div class="flex justify-between items-start">
+                    <div onclick="openRestaurant()" class="cursor-pointer">
+                        <h3 class="text-xl font-black text-gray-100 uppercase leading-none">TBC Restaurant</h3>
+                        <p class="text-[10px] text-gray-500 mt-2 uppercase font-bold">Authentic Veg & Non-Veg • Near GLA Gate 1</p>
+                    </div>
+                    <a href="https://wa.me/919346825634?text=Hi, I need help with my order." 
+                       class="bg-blue-600/10 border border-blue-500/50 text-blue-400 px-3 py-2 rounded-xl text-[9px] font-black uppercase text-center leading-tight">
+                       24/7 Care<br>Chat Only
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-screen" class="hidden bg-[#0f0f0f]">
+        <div class="bg-[#1a1a1a] sticky top-[64px] z-40 border-b border-gray-800">
+            <div class="p-3">
+                <input type="text" id="menu-search" placeholder="Search Biryani, Chicken, Roti..." 
+                       class="w-full text-xs border border-gray-700 rounded-xl px-4 py-3 bg-[#262626] text-white outline-none focus:border-red-500"
+                       onkeyup="renderMenu()">
+            </div>
+            <div class="flex text-center">
+                <button id="v-tab" onclick="setTab('veg')" class="flex-1 py-4 text-xs font-black border-b-4 border-red-600 text-red-600 uppercase">Pure Veg</button>
+                <button id="nv-tab" onclick="setTab('nonveg')" class="flex-1 py-4 text-xs font-bold text-gray-500 uppercase">Non-Veg</button>
+            </div>
+        </div>
+        <div id="menu-items" class="p-4 pb-48 space-y-12"></div>
+    </div>
+
+    <div id="cart-modal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-end">
+        <div class="bg-[#1a1a1a] w-full rounded-t-3xl p-6 border-t border-gray-800 max-h-[70vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black uppercase italic text-gray-100">Review Cart</h2>
+                <button onclick="toggleCart()" class="bg-gray-800 text-white p-2 rounded-full px-4 text-[10px] font-black uppercase">Close</button>
+            </div>
+            <div id="cart-list" class="space-y-4 mb-6"></div>
+            <div class="border-t border-gray-800 pt-4 flex justify-between items-center mb-6">
+                <p class="text-sm font-bold text-gray-500 uppercase">Total Amount</p>
+                <p id="modal-total" class="text-2xl font-black text-red-500">₹0</p>
+            </div>
+            <button onclick="placeOrder()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-xl">Place Order On WhatsApp ➔</button>
+        </div>
+    </div>
+
+    <div id="action-bar" class="hidden fixed bottom-6 left-4 right-4 z-50">
+        <button onclick="toggleCart()" class="w-full bg-green-600 text-white p-4 rounded-2xl flex justify-between items-center shadow-2xl active:scale-95 transition-transform">
+            <div>
+                <p id="c-qty" class="text-[9px] font-bold uppercase leading-none opacity-80">0 Items Added</p>
+                <p id="c-total" class="text-lg font-black tracking-tight">₹0</p>
+            </div>
+            <span class="font-black text-sm uppercase italic">View Cart & Order ➔</span>
+        </button>
+    </div>
+
+    <script>
+        const menu = {
+            nonveg: {
+                "Chicken Main Course": [
+                    { n: "Butter Chicken (Qtr)", p: 180 }, { n: "Butter Chicken (Half)", p: 300 }, { n: "Butter Chicken (Full)", p: 550 },
+                    { n: "Chicken Masala (Qtr)", p: 180 }, { n: "Chicken Masala (Half)", p: 300 }, { n: "Chicken Masala (Full)", p: 500 },
+                    { n: "Kadai Chicken (Qtr)", p: 180 }, { n: "Kadai Chicken (Half)", p: 300 }, { n: "Kadai Chicken (Full)", p: 550 },
+                    { n: "Chicken Korma (Qtr)", p: 180 }, { n: "Chicken Korma (Half)", p: 300 }, { n: "Chicken Korma (Full)", p: 550 }
+                ],
+                "Biryani & Starters": [
+                    { n: "Chicken Hyderabad Biryani", p: 200 }, { n: "Egg Biryani", p: 150 },
+                    { n: "Chicken Tikka", p: 280 }, { n: "Chicken Pakoda", p: 200 }, { n: "Chicken Roll", p: 120 }
+                ]
+            },
+            veg: {
+                "Thalis & Combos": [
+                    { n: "Deluxe Thali", p: 180, d: "Dal, Rice, Paneer, 3 Roti, Papad, Salad, Raita" },
+                    { n: "TBC Special Thali", p: 250, d: "Paneer, Dal Makhni, 2 Breads, Rice, Raita, Salad" },
+                    { n: "Combo: Kadai Paneer + 3 Roti", p: 150 }
+                ],
+                "Paneer & Mains": [
+                    { n: "Matar Paneer", p: 190 }, { n: "Kadhai Paneer", p: 220 }, { n: "Shahi Paneer", p: 220 },
+                    { n: "Dal Makhni", p: 200 }, { n: "Mix Veg.", p: 160 }
+                ],
+                "Breads & Drinks": [
+                    { n: "Butter Roti", p: 14 }, { n: "Butter Naan", p: 35 }, { n: "Lachha Paratha", p: 35 },
+                    { n: "Kitkat Shake", p: 130 }, { n: "Virgin Mojito", p: 100 }
+                ]
+            }
+        };
+
+        let cart = []; let currentTab = 'veg';
+
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    () => { document.getElementById('loc-text').innerText = "📍 Location Verified"; },
+                    () => { document.getElementById('loc-text').innerText = "📍 Access Denied"; }
+                );
+            }
+        }
+
+        function openRestaurant() {
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.remove('hidden');
+            document.getElementById('back-btn').classList.remove('hidden');
+            renderMenu();
+        }
+
+        function showHome() {
+            document.getElementById('home-screen').classList.remove('hidden');
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('back-btn').classList.add('hidden');
+        }
+
+        function setTab(tab) {
+            currentTab = tab;
+            document.getElementById('v-tab').className = tab === 'veg' ? 'flex-1 py-4 text-xs font-black border-b-4 border-red-600 text-red-600 uppercase' : 'flex-1 py-4 text-xs font-bold text-gray-500 uppercase';
+            document.getElementById('nv-tab').className = tab === 'nonveg' ? 'flex-1 py-4 text-xs font-black border-b-4 border-red-600 text-red-600 uppercase' : 'flex-1 py-4 text-xs font-bold text-gray-500 uppercase';
+            renderMenu();
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu-items');
+            const search = document.getElementById('menu-search').value.toLowerCase();
+            container.innerHTML = '';
+            Object.keys(menu[currentTab]).forEach(cat => {
+                let sectionContent = '';
+                menu[currentTab][cat].forEach(item => {
+                    if (item.n.toLowerCase().includes(search)) {
+                        sectionContent += `
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-8">
+                            <div class="flex-1 pr-4">
+                                <div class="${currentTab === 'veg' ? 'veg-dot' : 'nonveg-dot'} mb-1"><div></div></div>
+                                <h3 class="font-black text-gray-100 text-sm uppercase">${item.n}</h3>
+                                <p class="text-red-500 font-black mt-2 text-lg">₹${item.p}</p>
+                            </div>
+                            <button onclick="addToCart('${item.n}', ${item.p})" class="bg-[#262626] text-green-500 border border-gray-700 px-6 py-2 rounded-xl font-black text-xs uppercase active:scale-90">Add</button>
+                        </div>`;
+                    }
+                });
+                if (sectionContent) container.innerHTML += `<div><h2 class="text-base font-black text-gray-500 uppercase italic">| ${cat}</h2><div class="mt-6 space-y-8">${sectionContent}</div></div>`;
+            });
+        }
+
+        function addToCart(n, p) {
+            cart.push({name: n, price: p});
+            updateUI();
+        }
+
+        function updateUI() {
+            const total = cart.reduce((s, i) => s + i.price, 0);
+            document.getElementById('action-bar').classList.toggle('hidden', cart.length === 0);
+            document.getElementById('c-qty').innerText = cart.length + " ITEMS ADDED";
+            document.getElementById('c-total').innerText = "₹" + total;
+            document.getElementById('modal-total').innerText = "₹" + total;
+            
+            document.getElementById('cart-list').innerHTML = cart.map((i, index) => `
+                <div class="flex justify-between items-center">
+                    <p class="text-xs font-bold uppercase text-gray-300">${i.name}</p>
+                    <div class="flex items-center gap-4">
+                        <p class="text-sm font-black">₹${i.price}</p>
+                        <button onclick="remove(${index})" class="text-red-500 font-bold text-lg">×</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function remove(idx) {
+            cart.splice(idx, 1);
+            updateUI();
+            if (cart.length === 0) toggleCart();
+        }
+
+        function toggleCart() { document.getElementById('cart-modal').classList.toggle('hidden'); }
+
+        function placeOrder() {
+            const total = cart.reduce((s, i) => s + i.price, 0);
+            const msg = `*NEW ORDER FROM DATTA DASH*%0A---%0A*Items:* ${cart.map(i => i.name).join(", ")}%0A*Total:* ₹${total}%0A---%0A*Address:* `;
+            window.location.href = `https://wa.me/919346825634?text=${msg}`;
+        }
+    </script>
+</body>
+</html> 
+       
