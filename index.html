@@ -198,3 +198,30 @@
     </script>
 </body>
 </html>
+// Replace the message logic inside your sendOrder function
+const text = encodeURIComponent(
+    `*ORDER: DATTA DASH*\n` +
+    `------------------\n` +
+    `*Payment:* ${paymentMode}\n` +
+    `*Room:* ${document.getElementById('room').value || "GPS Only"}\n` +
+    `*Location:* ${userLocation || "Not Shared"}\n` +
+    `------------------\n` +
+    `*Items:* ${cart.map(i => i.name).join(', ')}\n` +
+    `*Total:* ₹${cart.reduce((s, i) => s + i.price, 0)}`
+);
+// Paste this inside your window.onload function
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((pos) => {
+        // This variable stores the coordinates as a Google Maps link
+        userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        
+        // Updates the city-badge to show the user it worked
+        const badge = document.getElementById('city-badge');
+        if (badge) {
+            badge.innerText = "GPS Location Secured ✓";
+            badge.style.color = "#22c55e"; // Green color
+        }
+    }, (err) => {
+        console.error("GPS Error:", err);
+    }, { enableHighAccuracy: true });
+}
