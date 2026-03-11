@@ -42,7 +42,7 @@
         </div>
 
         <div onclick="openRestaurant()" class="w-full max-w-sm bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl cursor-pointer active:scale-95 transition-transform">
-            <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter">TBC</h2></div>
+            <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter shadow-2xl">TBC</h2></div>
             <div class="p-6 text-center bg-[#111]">
                 <h3 class="text-xl font-bold mb-2 uppercase italic text-white">TBC Restaurant</h3>
                 <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Near GLA Gate No. 1</p>
@@ -65,21 +65,21 @@
         <nav class="bg-[#0f0f0f] border-b border-zinc-800 py-3 overflow-x-auto no-scrollbar">
             <div class="flex gap-8 px-6 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
                 <button onclick="showSection('veg')" class="cat-btn text-red-600">Pure Veg</button>
-                <button onclick="showSection('nonveg')" class="cat-btn">Non-Veg Chicken</button>
-                <button onclick="showSection('chinese')" class="cat-btn">Chinese/Pizza</button>
-                <button onclick="showSection('drinks')" class="cat-btn">Beverages</button>
+                <button onclick="showSection('nonveg')" class="cat-btn">Non-Veg Chicken/Fish</button>
+                <button onclick="showSection('fastfood')" class="cat-btn">Fast Food/Pizza</button>
+                <button onclick="showSection('beverages')" class="cat-btn">Beverages</button>
             </div>
         </nav>
         <main class="flex-grow overflow-y-auto p-6 max-w-xl mx-auto pb-44 w-full"><div id="items-container" class="space-y-8"></div></main>
     </div>
 
-    <div id="ai-ui" class="fixed inset-0 bg-[#0a0a0a] z-[2000] hidden flex flex-col p-8 transition-all duration-300 transform translate-y-full opacity-0">
+    <div id="ai-ui" class="fixed inset-0 bg-[#0a0a0a] z-[2000] hidden flex-col p-8 transition-all duration-300 transform translate-y-full opacity-0">
         <div class="flex justify-between items-center mb-8 border-b border-zinc-800 pb-6"><h2 class="text-3xl font-black italic text-red-600 uppercase">Voice AI</h2><button onclick="toggleAI()" class="bg-zinc-900 p-3 rounded-2xl border border-zinc-800"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
         <div id="ai-messages" class="flex-grow overflow-y-auto space-y-6 mb-6 text-sm no-scrollbar text-zinc-300 italic"></div>
         <div class="flex gap-3 bg-zinc-900 p-2 rounded-3xl border border-zinc-800 shadow-2xl items-center"><input type="text" id="ai-input" placeholder="Ask prices..." class="flex-grow bg-transparent p-4 outline-none font-bold text-sm text-white"><button onclick="askAI()" class="bg-red-600 px-8 py-4 rounded-2xl font-black text-xs uppercase shadow-lg italic">Send</button></div>
     </div>
 
-    <div id="cart-ui" class="fixed inset-0 bg-[#0a0a0a] z-[2100] hidden flex flex-col p-8 transition-all duration-300 transform translate-y-full opacity-0">
+    <div id="cart-ui" class="fixed inset-0 bg-[#0a0a0a] z-[2100] hidden flex-col p-8 transition-all duration-300 transform translate-y-full opacity-0">
         <div class="flex justify-between items-center mb-10 border-b border-zinc-900 pb-6"><h2 class="text-4xl font-black italic text-red-600 uppercase">My Order</h2><button onclick="toggleCart()" class="bg-zinc-900 p-3 rounded-2xl border border-zinc-800"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></div>
         <div id="cart-items" class="flex-grow overflow-y-auto space-y-4 no-scrollbar"></div>
         <div class="mt-auto pt-6 border-t border-zinc-900">
@@ -95,38 +95,40 @@
     </div>
 
     <script>
-        // FULL COMPREHENSIVE MENU FROM 10-PAGE PDF
         const menuData = {
             veg: [
                 { name: "Delux Thali (Full Meal)", price: 180, cat: "Thali" }, { name: "TBC Special Thali", price: 250, cat: "Thali" },
-                { name: "Matar Paneer", price: 190, cat: "Paneer" }, { name: "Paneer Tikka Butter Masala", price: 230, cat: "Paneer" },
-                { name: "Kadhai Paneer (Spicy)", price: 220, cat: "Paneer" }, { name: "Dal Makhani", price: 200, cat: "Dal" },
-                { name: "Soya Malai Chaap Gravy", price: 210, cat: "Chaap" }, { name: "Veg. Biryani", price: 150, cat: "Rice" }
+                { name: "Matar Paneer", price: 190, cat: "Paneer" }, { name: "Paneer Tikka Masala", price: 230, cat: "Paneer" },
+                { name: "Kadhai Paneer (Spicy)", price: 220, cat: "Paneer" }, { name: "Paneer Butter Masala", price: 220, cat: "Paneer" },
+                { name: "Dal Makhani", price: 200, cat: "Dal" }, { name: "Dal Tadka", price: 140, cat: "Dal" },
+                { name: "Mix Veg.", price: 160, cat: "Veg" }, { name: "Veg. Biryani", price: 150, cat: "Rice" },
+                { name: "Butter Naan", price: 35, cat: "Roti" }, { name: "Churchur Naan", price: 45, cat: "Roti" }
             ],
             nonveg: [
-                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Murg Dum Dahi Handi", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Korma (Sweet)", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Kadai Chicken (Spicy)", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Changezi (Lemon)", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Lababdar (Creamy)", sizes: { "Quarter": 200, "Half Portion": 320, "Full Plate": 580 }, type: "nonveg" },
-                { name: "TBC Special Chicken", sizes: { "Quarter": 180, "Half Portion": 320, "Full Plate": 580 }, type: "nonveg" },
-                { name: "Champaran Chicken", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Masala (Spicy)", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 500 }, type: "nonveg" },
-                { name: "Chicken-Do Pyaz", sizes: { "Quarter": 180, "Half Portion": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Biryani", price: 220, type: "nonveg" }, { name: "Chicken Roll", price: 120, type: "nonveg" }, { name: "Egg Curry", price: 100, type: "nonveg" }
+                { name: "Tandoori Chicken", sizes: { "Half": 250, "Full": 450 }, type: "nonveg" },
+                { name: "Afgani Chicken", sizes: { "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Kadai Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Chicken Changezi (Lemon)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Chicken Lababdar (Creamy)", sizes: { "Quarter": 200, "Half": 320, "Full": 580 }, type: "nonveg" },
+                { name: "Chicken Masala (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 500 }, type: "nonveg" },
+                { name: "Murg Dum Dahi Handi", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Fish Special", sizes: { "Half": 250, "Full": 450 }, type: "nonveg" },
+                { name: "Chicken Biryani", price: 220, type: "nonveg" }, { name: "Chicken Roll", price: 120, type: "nonveg" },
+                { name: "Egg Curry", price: 100, type: "nonveg" }, { name: "Chicken Tikka", price: 280, type: "nonveg" }
             ],
-            chinese: [
+            fastfood: [
                 { name: "Paneer Tikka Pizza", price: 200, cat: "Pizza" }, { name: "Chicken Pizza", price: 250, cat: "Pizza" },
                 { name: "Veg Chowmein", price: 100, cat: "Chinese" }, { name: "Chilly Paneer Dry/Gravy", price: 190, cat: "Chinese" },
-                { name: "Veg Maggi", price: 90, cat: "Maggi" }, { name: "Aloo Tikki Burger", price: 50, cat: "Burger" }
+                { name: "Veg Maggi", price: 90, cat: "Maggi" }, { name: "Aloo Tikki Burger", price: 50, cat: "Burger" },
+                { name: "Paneer Burger", price: 90, cat: "Burger" }, { name: "Chicken Sandwich", price: 150, cat: "Sandwich" }
             ],
-            drinks: [{ name: "Kitkat Shake", price: 130 }, { name: "Cold Coffee", price: 100 }, { name: "Virgin Mojito", price: 100 }, { name: "Hot Kullad Tea", price: 20 }]
+            beverages: [{ name: "Kitkat Shake", price: 130 }, { name: "Cold Coffee", price: 100 }, { name: "Virgin Mojito", price: 100 }, { name: "Hot Kullad Tea", price: 20 }]
         };
 
         let cart = []; let userLocation = ""; let paymentMode = "";
 
-        // ROBUST SPLASH & LOCATION DETECTION
+        // ROBUST SPLASH & LOCATION
         document.addEventListener('DOMContentLoaded', () => {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((pos) => {
@@ -160,7 +162,7 @@
                     <div class="flex flex-col gap-3">
                         ${i.sizes ? Object.entries(i.sizes).map(([s, p]) => `
                             <button onclick="add('${i.name} (${s})', ${p})" class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-3xl text-[10px] font-black uppercase tracking-widest flex justify-between items-center px-8 active:bg-red-600 shadow-inner"><span>${s}</span> <span class="text-red-500 italic font-black">₹${p}</span></button>`).join('') : `
-                            <button onclick="add('${i.name}', ${i.price})" class="w-full bg-zinc-800 border border-zinc-700 p-5 rounded-3xl font-black text-xs uppercase flex justify-between items-center px-8 active:scale-95 transition-all italic tracking-tighter"><span>Full Plate</span> <span class="text-red-500 font-black italic">₹${i.price}</span></button>`}
+                            <button onclick="add('${i.name}', ${i.price})" class="w-full bg-zinc-800 border border-zinc-700 p-5 rounded-3xl font-black text-xs uppercase flex justify-between items-center px-8 active:scale-95 transition-all italic tracking-tighter"><span>Add to Cart</span> <span class="text-red-500 font-black italic">₹${i.price}</span></button>`}
                     </div>
                 </div>`).join('');
         }
@@ -175,7 +177,7 @@
             document.getElementById('cart-items').innerHTML = cart.map((i, idx) => `
                 <div class="flex justify-between items-center bg-zinc-900/70 p-5 rounded-3xl border border-zinc-800 shadow-xl mb-4">
                     <div><p class="font-black text-[10px] uppercase italic text-white tracking-widest">${i.name}</p><p class="text-red-600 font-black italic text-sm mt-1">₹${i.price}</p></div>
-                    <button onclick="remove(${idx})" class="p-2 text-zinc-700 hover:text-red-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                    <button onclick="remove(${idx})" class="p-2 text-zinc-700 hover:text-red-600 transition duration-300"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
                 </div>`).join('');
         }
 
@@ -187,9 +189,9 @@
             const box = document.getElementById('ai-messages');
             if(!input) return;
             box.innerHTML += `<div class="bg-red-600 p-5 rounded-3xl rounded-tr-none text-right font-black text-[10px] ml-14 italic uppercase text-white shadow-lg mb-4 tracking-widest">${input}</div>`;
-            let reply = "Checking menu... we have 10 types of chicken curries and full thalis!";
-            if(input.includes("chicken")) reply = "Butter Chicken and 9 other varieties start at ₹180.";
-            if(input.includes("time")) reply = "Delivery in 20 minutes to GLA Gate No. 1!";
+            let reply = "Checking menu... ask about Tandoori Chicken, thalis, or our 10 Types of Chicken!";
+            if(input.includes("tandoori")) reply = "Tandoori Chicken is ₹250 (Half) and ₹450 (Full).";
+            if(input.includes("chicken")) reply = "We have 10 types of chicken curries and starters like Chicken Tikka (₹280).";
             setTimeout(() => { box.innerHTML += `<div class="bg-zinc-900 p-6 rounded-3xl rounded-tl-none border border-zinc-800 mr-14 text-zinc-300 font-bold text-[10px] tracking-widest text-red-600 mb-4 italic">AI: ${reply}</div>`; box.scrollTop = box.scrollHeight; const m = new SpeechSynthesisUtterance(); m.text = reply; window.speechSynthesis.speak(m); }, 600);
             document.getElementById('ai-input').value = "";
         }
