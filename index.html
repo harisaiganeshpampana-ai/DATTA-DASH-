@@ -198,7 +198,7 @@
     </script>
 </body>
 </html>
-// Replace the message logic inside your sendOrder function
+ Replace the message logic inside your sendOrder function
 const text = encodeURIComponent(
     `*ORDER: DATTA DASH*\n` +
     `------------------\n` +
@@ -209,7 +209,7 @@ const text = encodeURIComponent(
     `*Items:* ${cart.map(i => i.name).join(', ')}\n` +
     `*Total:* ₹${cart.reduce((s, i) => s + i.price, 0)}`
 );
-// Paste this inside your window.onload function
+Paste this inside your window.onload function
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((pos) => {
         // This variable stores the coordinates as a Google Maps link
