@@ -1,123 +1,113 @@
-<!DOCTYPE html> x
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATTA DASH | Premium Ordering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DATTA DASH | TBC Delivery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .veg-dot { border: 1px solid #0f8a45; padding: 2px; display: inline-block; }
-        .veg-dot div { background: #0f8a45; width: 8px; height: 8px; border-radius: 50%; }
-        .nonveg-dot { border: 1px solid #bd302b; padding: 2px; display: inline-block; }
-        .nonveg-dot div { background: #bd302b; width: 8px; height: 8px; border-radius: 50%; }
+        .nonveg-dot { border: 1px solid #bd302b; padding: 2px; display: inline-block; width: 14px; height: 14px; position: relative; }
+        .nonveg-dot::after { content: ''; background: #bd302b; width: 6px; height: 6px; border-radius: 50%; position: absolute; top: 3px; left: 3px; }
+        .veg-dot { border: 1px solid #0f8a45; padding: 2px; display: inline-block; width: 14px; height: 14px; position: relative; }
+        .veg-dot::after { content: ''; background: #0f8a45; width: 6px; height: 6px; border-radius: 50%; position: absolute; top: 3px; left: 3px; }
     </style>
 </head>
-<body class="bg-[#0f0f0f] text-white font-sans">
-    <header class="bg-[#1a1a1a] p-4 sticky top-0 z-50 shadow-lg border-b border-red-900/30">
-        <div class="flex justify-between items-center max-w-2xl mx-auto">
+<body class="bg-[#0f0f0f] text-white">
+    <header class="bg-[#1a1a1a] p-5 sticky top-0 z-50 border-b border-red-900/30">
+        <div class="flex justify-between items-center max-w-lg mx-auto">
             <div>
                 <h1 class="text-2xl font-black text-red-600 tracking-tighter">DATTA DASH</h1>
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest">Premium Hostel Delivery</p>
+                <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Hostel Premium Delivery</p>
             </div>
-            <button onclick="toggleCart()" class="relative p-2 bg-red-600 rounded-full shadow-red-900/20 shadow-lg">
+            <button onclick="toggleCart()" class="bg-red-600 p-3 rounded-full shadow-lg relative">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold px-1.5 rounded-full">0</span>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-xs font-bold px-1.5 rounded-full">0</span>
             </button>
         </div>
     </header>
 
-    <main class="p-4 max-w-2xl mx-auto pb-32">
-        <div class="bg-gradient-to-r from-red-900/20 to-transparent p-4 rounded-xl mb-6 border border-red-900/30">
-            <h2 class="text-xl font-bold mb-1">TBC Restaurant</h2>
-            <p class="text-gray-400 text-sm">Delicious Indian & Chinese • Hostel Specialized</p>
+    <main class="p-4 max-w-lg mx-auto pb-32">
+        <div class="mb-8 p-4 rounded-2xl bg-gradient-to-br from-red-900/20 to-transparent border border-red-900/20">
+            <h2 class="text-xl font-bold">TBC Restaurant</h2>
+            <p class="text-sm text-gray-400">Authentic Indian & Chinese • Fast Delivery</p>
         </div>
 
-        <div id="menu-container" class="space-y-4"></div>
+        <div id="menu" class="space-y-4"></div>
     </main>
 
-    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-[#1a1a1a] transform translate-x-full transition-transform duration-300 z-[100] shadow-2xl border-l border-red-900/30">
-        <div class="p-6 h-full flex flex-col">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">Your Order</h2>
-                <button onclick="toggleCart()" class="text-gray-400 hover:text-white">Close</button>
+    <div id="cart-ui" class="fixed inset-0 bg-black/90 z-[100] hidden flex flex-col p-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-black">YOUR CART</h2>
+            <button onclick="toggleCart()" class="text-gray-400 text-sm uppercase">Close</button>
+        </div>
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
+        <div class="mt-auto pt-6 border-t border-gray-800">
+            <input type="text" id="room" placeholder="Enter Room Number" class="w-full bg-[#1a1a1a] border border-gray-700 rounded-xl p-4 mb-4 text-center text-xl focus:border-red-600 outline-none">
+            <div class="flex justify-between text-2xl font-bold mb-6">
+                <span>Total</span>
+                <span id="total" class="text-red-500">₹0</span>
             </div>
-            <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
-            <div class="mt-6 pt-6 border-t border-gray-800">
-                <input type="text" id="room-number" placeholder="Enter Hostel Room Number" class="w-full bg-[#0f0f0f] border border-red-900/30 rounded-lg p-3 mb-4 focus:outline-none focus:border-red-600">
-                <div class="flex justify-between text-xl font-bold mb-6">
-                    <span>Total</span>
-                    <span id="cart-total" class="text-red-500">₹0</span>
-                </div>
-                <button onclick="placeOrder()" class="w-full bg-red-600 py-4 rounded-xl font-bold text-lg hover:bg-red-700 transition shadow-lg shadow-red-900/40">ORDER ON WHATSAPP</button>
-            </div>
+            <button onclick="sendOrder()" class="w-full bg-red-600 py-5 rounded-2xl font-black text-xl">ORDER ON WHATSAPP</button>
         </div>
     </div>
 
     <script>
-        const menu = [
-            { id: 1, name: "Butter Chicken", price: 180, isNonVeg: true, desc: "Portion: Quarter (₹180), Half (₹300), Full (₹550)", sizes: { "Qtr": 180, "Half": 300, "Full": 550 } },
-            { id: 2, name: "Matar Paneer", price: 190, isNonVeg: false, desc: "Classic paneer and peas gravy" },
-            { id: 3, name: "Chicken Biryani", price: 220, isNonVeg: true, desc: "Aromatic basmati with spiced chicken" }
+        const menuData = [
+            { name: "Butter Chicken", isNonVeg: true, sizes: { "Qtr": 180, "Half": 300, "Full": 550 } },
+            { name: "Chicken Tikka Masala", isNonVeg: true, sizes: { "Half": 280, "Full": 520 } },
+            { name: "Paneer Butter Masala", isNonVeg: false, price: 190 },
+            { name: "Chicken Biryani", isNonVeg: true, price: 220 },
+            { name: "Veg Fried Rice", isNonVeg: false, price: 160 }
         ];
 
         let cart = [];
 
-        function renderMenu() {
-            const container = document.getElementById('menu-container');
-            container.innerHTML = menu.map(item => `
-                <div class="bg-[#1a1a1a] p-4 rounded-xl border border-gray-800 flex justify-between items-center">
-                    <div>
-                        <div class="${item.isNonVeg ? 'nonveg-dot' : 'veg-dot'} mb-2"><div></div></div>
-                        <h3 class="font-bold text-lg">${item.name}</h3>
-                        <p class="text-xs text-gray-500 mb-2">${item.desc}</p>
-                        <p class="text-red-500 font-bold">₹${item.price}</p>
+        function render() {
+            document.getElementById('menu').innerHTML = menuData.map(item => `
+                <div class="bg-[#1a1a1a] p-4 rounded-2xl border border-gray-800">
+                    <div class="${item.isNonVeg ? 'nonveg-dot' : 'veg-dot'} mb-2"></div>
+                    <h3 class="font-bold text-lg">${item.name}</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        ${item.sizes ? Object.entries(item.sizes).map(([s, p]) => `
+                            <button onclick="add('${item.name} (${s})', ${p})" class="bg-gray-800 px-3 py-2 rounded-xl text-xs font-bold border border-gray-700">
+                                ${s}: ₹${p}
+                            </button>
+                        `).join('') : `
+                            <div class="flex items-center justify-between w-full">
+                                <span class="text-red-500 font-black">₹${item.price}</span>
+                                <button onclick="add('${item.name}', ${item.price})" class="bg-red-600 px-6 py-2 rounded-xl text-sm font-bold">ADD</button>
+                            </div>
+                        `}
                     </div>
-                    ${item.sizes ? `
-                        <div class="flex flex-col gap-2">
-                            <button onclick="addToCart(${item.id}, 'Qtr')" class="bg-gray-800 px-3 py-1 rounded text-xs">Qtr ₹180</button>
-                            <button onclick="addToCart(${item.id}, 'Half')" class="bg-gray-800 px-3 py-1 rounded text-xs">Half ₹300</button>
-                        </div>
-                    ` : `
-                        <button onclick="addToCart(${item.id})" class="bg-red-600 px-6 py-2 rounded-lg font-bold text-sm">ADD</button>
-                    `}
                 </div>
             `).join('');
         }
 
-        function addToCart(id, size = null) {
-            const item = menu.find(m => m.id === id);
-            const price = size ? item.sizes[size] : item.price;
-            cart.push({ ...item, name: size ? `${item.name} (${size})` : item.name, price });
-            updateUI();
+        function add(name, price) {
+            cart.push({name, price});
+            update();
         }
 
-        function updateUI() {
+        function update() {
             document.getElementById('cart-count').innerText = cart.length;
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = cart.map((item, idx) => `
-                <div class="flex justify-between items-center bg-[#0f0f0f] p-3 rounded-lg border border-gray-800">
-                    <span class="text-sm">${item.name}</span>
-                    <span class="font-bold">₹${item.price}</span>
+            document.getElementById('total').innerText = '₹' + cart.reduce((s, i) => s + i.price, 0);
+            document.getElementById('cart-items').innerHTML = cart.map((i, idx) => `
+                <div class="flex justify-between items-center bg-[#1a1a1a] p-4 rounded-xl border border-gray-800">
+                    <span class="font-bold">${i.name}</span>
+                    <span class="text-red-500 font-bold">₹${i.price}</span>
                 </div>
             `).join('');
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('cart-total').innerText = `₹${total}`;
         }
 
-        function toggleCart() {
-            document.getElementById('cart-sidebar').classList.toggle('translate-x-full');
-        }
+        function toggleCart() { document.getElementById('cart-ui').classList.toggle('hidden'); }
 
-        function placeOrder() {
-            const room = document.getElementById('room-number').value;
-            if(!room) return alert("Please enter your room number!");
-            const items = cart.map(i => i.name).join(', ');
-            const total = cart.reduce((sum, i) => sum + i.price, 0);
-            const msg = encodeURIComponent(`*NEW ORDER FROM DATTA DASH*\n\n*Room:* ${room}\n*Items:* ${items}\n*Total:* ₹${total}`);
-            window.location.href = `https://wa.me/917013342335?text=${msg}`;
+        function sendOrder() {
+            const room = document.getElementById('room').value;
+            if(!room) return alert("Enter room number!");
+            const text = encodeURIComponent(`*DATTA DASH ORDER*\nRoom: ${room}\nItems: ${cart.map(i => i.name).join(', ')}\nTotal: ₹${cart.reduce((s, i) => s + i.price, 0)}`);
+            window.location.href = `https://wa.me/917013342335?text=${text}`;
         }
-
-        renderMenu();
+        render();
     </script>
 </body>
 </html>
