@@ -24,7 +24,7 @@
         <div class="relative bg-zinc-900 rounded-full p-12 border border-white/5 animate-pulse shadow-2xl">
             <span class="text-7xl">🙏</span>
         </div>
-        <p class="mt-12 text-zinc-500 font-bold tracking-[0.4em] text-[10px] uppercase italic">Welcome to Datta Dash</p>
+        <p class="mt-12 text-zinc-500 font-bold tracking-[0.4em] text-[10px] uppercase italic text-center">Welcome to Datta Dash</p>
     </div>
 
     <div id="restaurant-selector" class="fixed inset-0 z-[500] bg-[#0f0f0f] flex flex-col items-center p-6 page-transition opacity-0 pointer-events-none translate-y-10" style="display: none;">
@@ -33,7 +33,7 @@
             <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> Detecting City...
         </div>
         <div onclick="openRestaurant()" class="w-full max-w-sm bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl cursor-pointer active:scale-95 transition-transform">
-            <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter">TBC</h2></div>
+            <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter shadow-2xl">TBC</h2></div>
             <div class="p-6 text-center bg-[#111]">
                 <h3 class="text-xl font-bold mb-2 uppercase italic text-white">TBC Restaurant</h3>
                 <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Near GLA Gate No-1</p>
@@ -85,21 +85,22 @@
         const menuData = {
             veg: [
                 { name: "Delux Thali", price: 180 }, { name: "TBC Special Thali", price: 250 },
-                { name: "Matar Paneer", price: 190 }, { name: "Paneer Lababdaar", price: 230 },
-                { name: "Dal Makhani", price: 200 }, { name: "Mix Veg.", price: 160 },
-                { name: "Paneer Tikka Butter Masala", price: 230 }, { name: "Malai Cofta", price: 220 }
+                { name: "Matar Paneer", price: 190 }, { name: "Paneer Tikka Butter Masala", price: 230 },
+                { name: "Kadhai Paneer", price: 220 }, { name: "Dal Makhani", price: 200 },
+                { name: "Soya Malai Chaap Gravy", price: 210 }, { name: "Veg. Biryani", price: 150 },
+                { name: "Butter Naan", price: 35 }, { name: "Lachha Paratha", price: 35 }
             ],
             nonveg_curry: [
-                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Murg Dum Dahi Handi", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Chicken Korma (Sweet)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Kadai Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Chicken-Do Pyaz (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Champaran Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Chicken Changezi (Lemon)", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Chicken Lababdar (Creamy)", sizes: { "Quarter": 200, "Half": 320, "Full": 580 }, type: "nonveg" },
-                { name: "TBC Special Chicken", sizes: { "Quarter": 180, "Half": 320, "Full": 580 }, type: "nonveg" },
-                { name: "Chicken Masala (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full": 500 }, type: "nonveg" },
+                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Murg Dum Dahi Handi", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Chicken Korma (Sweet)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Kadai Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Chicken-Do Pyaz (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Champaran Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Chicken Changezi (Lemon)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
+                { name: "Chicken Lababdar (Creamy)", sizes: { "Quarter": 200, "Half": 320, "Full Plate": 580 }, type: "nonveg" },
+                { name: "TBC Special Chicken", sizes: { "Quarter": 180, "Half": 320, "Full Plate": 580 }, type: "nonveg" },
+                { name: "Chicken Masala (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 500 }, type: "nonveg" },
                 { name: "Egg Curry", price: 100, type: "nonveg" }
             ],
             tandoor: [
@@ -128,6 +129,21 @@
         window.onload = () => {
             const splash = document.getElementById('launch-screen');
             const selector = document.getElementById('restaurant-selector');
+            
+            // GEOLOCATION LOGIC
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                    const badge = document.getElementById('city-badge');
+                    if (badge) {
+                        badge.innerText = "GPS Location Secured ✓";
+                        badge.style.color = "#22c55e";
+                    }
+                }, (err) => {
+                    console.error("GPS Error:", err);
+                }, { enableHighAccuracy: true });
+            }
+
             setTimeout(() => {
                 splash.style.opacity = '0';
                 setTimeout(() => {
@@ -136,12 +152,6 @@
                     setTimeout(() => { selector.style.opacity = '1'; selector.style.transform = 'translateY(0)'; selector.style.pointerEvents = 'auto'; }, 50);
                 }, 1000);
             }, 4000);
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-                });
-            }
         };
 
         function setPayment(mode) { paymentMode = mode; document.getElementById('pay-online').classList.toggle('payment-active', mode === 'Online'); document.getElementById('pay-cod').classList.toggle('payment-active', mode === 'COD'); }
@@ -180,7 +190,7 @@
         function askAI() {
             const input = document.getElementById('ai-input').value.toLowerCase();
             const box = document.getElementById('ai-messages');
-            let reply = "Checking menu... ask about Tandoori Chicken, thalis, or our 10 curries!";
+            let reply = "Checking menu... ask about Tandoori Chicken or Thalis!";
             if(input.includes("tandoori")) reply = "Tandoori Chicken is ₹250 (Half) and ₹450 (Full).";
             if(input.includes("chicken")) reply = "We have 10 types of chicken curries including Butter and Champaran!";
             box.innerHTML += `<div class="text-red-600 text-right font-black uppercase text-[9px] mb-1">You: ${input}</div>`;
@@ -189,39 +199,23 @@
         }
 
         function sendOrder() {
-            const room = document.getElementById('room').value || "GPS Only";
+            const roomValue = document.getElementById('room').value || "GPS Only";
             if(cart.length === 0) return alert("Empty Order!");
             if(!paymentMode) return alert("Select Payment Mode!");
-            const text = encodeURIComponent(`*ORDER: DATTA DASH*\nPayment: ${paymentMode}\nLocation: ${userLocation}\nRoom: ${room}\nItems: ${cart.map(i => i.name).join(', ')}\nTotal: ₹${cart.reduce((s, i) => s + i.price, 0)}`);
+
+            // MESSAGE LOGIC
+            const text = encodeURIComponent(
+                `*ORDER: DATTA DASH*\n` +
+                `------------------\n` +
+                `*Payment:* ${paymentMode}\n` +
+                `*Room:* ${roomValue}\n` +
+                `*Location:* ${userLocation || "Not Shared"}\n` +
+                `------------------\n` +
+                `*Items:* ${cart.map(i => i.name).join(', ')}\n` +
+                `*Total:* ₹${cart.reduce((s, i) => s + i.price, 0)}`
+            );
             window.location.href = `https://wa.me/919346825634?text=${text}`;
         }
     </script>
 </body>
 </html>
- Replace the message logic inside your sendOrder function
-const text = encodeURIComponent(
-    `*ORDER: DATTA DASH*\n` +
-    `------------------\n` +
-    `*Payment:* ${paymentMode}\n` +
-    `*Room:* ${document.getElementById('room').value || "GPS Only"}\n` +
-    `*Location:* ${userLocation || "Not Shared"}\n` +
-    `------------------\n` +
-    `*Items:* ${cart.map(i => i.name).join(', ')}\n` +
-    `*Total:* ₹${cart.reduce((s, i) => s + i.price, 0)}`
-);
-Paste this inside your window.onload function
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((pos) => {
-        // This variable stores the coordinates as a Google Maps link
-        userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-        
-        // Updates the city-badge to show the user it worked
-        const badge = document.getElementById('city-badge');
-        if (badge) {
-            badge.innerText = "GPS Location Secured ✓";
-            badge.style.color = "#22c55e"; // Green color
-        }
-    }, (err) => {
-        console.error("GPS Error:", err);
-    }, { enableHighAccuracy: true });
-}
