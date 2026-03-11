@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DINE-DASH | Premium Delivery</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .nonveg-dot { border: 1px solid #bd302b; padding: 2px; display: inline-block; width: 12px; height: 12px; position: relative; }
@@ -14,139 +11,105 @@
         .veg-dot { border: 1px solid #0f8a45; padding: 2px; display: inline-block; width: 12px; height: 12px; position: relative; }
         .veg-dot::after { content: ''; background: #0f8a45; width: 6px; height: 6px; border-radius: 50%; position: absolute; top: 2px; left: 2px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* FAIL-PROOF TRANSITIONS */
-        .page-transition { transition: all 0.6s ease-in-out; }
-        .visible-flex { display: flex !important; opacity: 1 !important; transform: translateY(0) !important; }
-        .hidden-screen { display: none !important; opacity: 0 !important; pointer-events: none !important; }
+        .page-transition { transition: all 0.5s ease-in-out; }
     </style>
 </head>
 <body class="bg-[#0f0f0f] text-white font-sans antialiased overflow-x-hidden">
 
-    <div id="launch-screen" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center transition-opacity duration-1000">
+    <div id="launch-screen" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center page-transition">
         <div class="relative bg-zinc-900 rounded-full p-12 border border-white/5 animate-pulse shadow-2xl">
             <span class="text-7xl">🙏</span>
         </div>
-        <p class="mt-12 text-zinc-500 font-bold tracking-[0.4em] text-[10px] uppercase italic text-center">Welcome to Datta Dash</p>
+        <p class="mt-12 text-zinc-500 font-bold tracking-[0.4em] text-[10px] uppercase italic">Welcome to Datta Dash</p>
     </div>
 
-    <div id="restaurant-selector" class="fixed inset-0 z-[500] bg-[#0f0f0f] flex-col items-center p-6 page-transition opacity-0 translate-y-10" style="display: none;">
+    <div id="restaurant-selector" class="fixed inset-0 z-[500] bg-[#0f0f0f] flex flex-col items-center p-6 page-transition opacity-0 pointer-events-none translate-y-10">
         <h1 class="text-3xl font-black italic text-red-600 tracking-tighter mb-4 mt-8 uppercase underline decoration-zinc-800">DINE-DASH</h1>
-        <div id="city-badge" class="bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800 text-[9px] font-black uppercase tracking-widest text-zinc-400 mb-10 flex items-center gap-2">
-            <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> Detecting City...
+        <div class="bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800 text-[9px] font-black uppercase tracking-widest text-zinc-400 mb-10 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> Near GLA Main Gate No-1
         </div>
         <div onclick="openRestaurant()" class="w-full max-w-sm bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-2xl cursor-pointer active:scale-95 transition-transform">
             <div class="h-40 bg-red-900 flex items-center justify-center"><h2 class="text-5xl font-black italic text-white uppercase tracking-tighter">TBC</h2></div>
             <div class="p-6 text-center bg-[#111]">
                 <h3 class="text-xl font-bold mb-2 uppercase italic text-white">TBC Restaurant</h3>
-                <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Near GLA Gate No-1</p>
+                <p class="text-zinc-500 text-[9px] mb-4 tracking-widest uppercase italic font-black">24H Service • Pure Veg & Non-Veg</p>
                 <div class="flex justify-center gap-4 text-[9px] font-black uppercase tracking-widest italic"><span class="text-green-500">Open Now</span><span class="text-red-500 font-black italic">Free Delivery</span></div>
             </div>
         </div>
     </div>
 
-    <div id="menu-app" class="fixed inset-0 z-[600] bg-[#0f0f0f] flex-col overflow-hidden page-transition opacity-0 translate-x-full" style="display: none;">
-        <header class="bg-[#1a1a1a] p-5 border-b border-zinc-800 shadow-xl">
-            <div class="flex justify-between items-center max-w-xl mx-auto">
-                <button onclick="goHome()" class="p-2 bg-zinc-800 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button>
-                <h1 class="text-xl font-black text-red-600 italic tracking-tighter uppercase">TBC Menu</h1>
-                <div class="flex gap-2">
-                    <button onclick="toggleAI()" class="p-2.5 bg-zinc-800 rounded-full border border-zinc-700 text-red-500 shadow-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg></button>
-                    <button onclick="toggleCart()" class="bg-red-600 p-2.5 rounded-full relative shadow-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-black px-1.5 rounded-full">0</span></button>
-                </div>
+    <div id="menu-app" class="fixed inset-0 z-[600] bg-[#0f0f0f] flex flex-col overflow-hidden page-transition opacity-0 pointer-events-none translate-x-full">
+        <header class="bg-[#1a1a1a] p-5 border-b border-zinc-800 flex justify-between items-center">
+            <button onclick="goHome()" class="p-2 bg-zinc-800 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg></button>
+            <h1 class="text-xl font-black text-red-600 italic tracking-tighter uppercase">TBC Menu</h1>
+            <div class="flex gap-2">
+                <button onclick="toggleAI()" class="p-2.5 bg-zinc-800 rounded-full text-red-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg></button>
+                <button onclick="toggleCart()" class="bg-red-600 p-2.5 rounded-full relative"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-black px-1.5 rounded-full">0</span></button>
             </div>
         </header>
-        <nav class="bg-[#0f0f0f] border-b border-zinc-800 py-3 overflow-x-auto no-scrollbar">
-            <div class="flex gap-8 px-6 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-                <button onclick="showSection('veg')" class="cat-btn text-red-600">Pure Veg</button>
-                <button onclick="showSection('nonveg')" class="cat-btn">Non-Veg Main</button>
-                <button onclick="showSection('tandoor')" class="cat-btn">Tandoor/Fish</button>
-                <button onclick="showSection('continental')" class="cat-btn">Continental</button>
-                <button onclick="showSection('drinks')" class="cat-btn">Beverages</button>
-            </div>
+        <nav class="bg-[#0f0f0f] border-b border-zinc-800 py-3 overflow-x-auto no-scrollbar flex gap-8 px-6 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
+            <button onclick="showSection('veg')" class="cat-btn text-red-600">Pure Veg</button>
+            <button onclick="showSection('nonveg')" class="cat-btn">Non-Veg Curry</button>
+            <button onclick="showSection('tandoor')" class="cat-btn">Tandoor & Fish</button>
+            <button onclick="showSection('chinese')" class="cat-btn">Fast Food</button>
         </nav>
-        <main class="flex-grow overflow-y-auto p-6 max-w-xl mx-auto pb-44 w-full">
-            <div id="items-container" class="space-y-8"></div>
-        </main>
+        <main id="items-container" class="flex-grow overflow-y-auto p-6 space-y-8 pb-40"></main>
+    </div>
+
+    <div id="ai-ui" class="fixed inset-0 z-[2000] bg-black flex-col p-6 page-transition translate-y-full flex">
+        <div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-black italic text-red-600 uppercase">Voice AI</h2><button onclick="toggleAI()" class="text-zinc-500 font-bold">Close</button></div>
+        <div id="ai-messages" class="flex-grow overflow-y-auto space-y-4 mb-4 text-sm italic text-zinc-400"></div>
+        <div class="flex gap-2 bg-zinc-900 p-2 rounded-2xl"><input type="text" id="ai-input" placeholder="Ask about prices..." class="bg-transparent flex-grow p-3 outline-none text-sm"><button onclick="askAI()" class="bg-red-600 px-6 py-3 rounded-xl font-black text-xs uppercase">Ask</button></div>
+    </div>
+
+    <div id="cart-ui" class="fixed inset-0 z-[2100] bg-black flex-col p-6 page-transition translate-y-full flex">
+        <div class="flex justify-between items-center mb-8"><h2 class="text-3xl font-black italic text-red-600 uppercase">Your Cart</h2><button onclick="toggleCart()" class="text-zinc-500 font-bold">Close</button></div>
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4 mb-4"></div>
+        <div class="border-t border-zinc-800 pt-6">
+            <div class="flex justify-between items-center mb-6"><span class="text-zinc-500 uppercase font-bold text-xs">Total Amount</span><span id="cart-total" class="text-3xl font-black text-red-600">₹0</span></div>
+            <button onclick="sendOrder()" class="w-full bg-red-600 py-5 rounded-2xl font-black uppercase italic text-xl shadow-2xl">Confirm on WhatsApp</button>
+        </div>
     </div>
 
     <script>
         const menuData = {
-            veg: [
-                { name: "Delux Thali (Full Meal)", price: 180 }, { name: "TBC Special Thali", price: 250 },
-                { name: "Matar Paneer", price: 190 }, { name: "Dal Makhani", price: 200 },
-                { name: "Mix Veg.", price: 160 }, { name: "Lachha Paratha", price: 35 }
-            ],
+            veg: [{ name: "Delux Thali", price: 180 }, { name: "TBC Special Thali", price: 250 }, { name: "Matar Paneer", price: 190 }, { name: "Dal Makhani", price: 200 }],
             nonveg: [
-                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Kadai Chicken (Spicy)", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Changezi", sizes: { "Quarter": 180, "Half": 300, "Full Plate": 550 }, type: "nonveg" },
-                { name: "Chicken Lababdar", sizes: { "Quarter": 200, "Half": 320, "Full Plate": 580 }, type: "nonveg" },
-                { name: "Egg Curry", price: 100, type: "nonveg" }
+                { name: "Butter Chicken", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Chicken Changezi", sizes: { "Quarter": 180, "Half": 300, "Full": 550 }, type: "nonveg" },
+                { name: "Chicken Lababdar", sizes: { "Quarter": 200, "Half": 320, "Full": 580 }, type: "nonveg" }
             ],
             tandoor: [
                 { name: "Tandoori Chicken", sizes: { "Half": 250, "Full": 450 }, type: "nonveg" },
                 { name: "Afgani Chicken", sizes: { "Half": 300, "Full": 550 }, type: "nonveg" },
-                { name: "Fish Special", sizes: { "Half": 250, "Full": 450 }, type: "nonveg" },
-                { name: "Chicken Tikka", price: 280, type: "nonveg" },
-                { name: "Fish Curry", sizes: { "Half": 250, "Full": 450 }, type: "nonveg" }
+                { name: "Fish Tikka", sizes: { "Half": 220, "Full": 400 }, type: "nonveg" },
+                { name: "Chicken Tikka", price: 280, type: "nonveg" }
             ],
-            continental: [
-                { name: "Chicken Pizza", price: 250 }, { name: "Chicken Burger", price: 120 },
-                { name: "Chicken Pasta", price: 220 }, { name: "Chicken Maggie", price: 140 },
-                { name: "Chicken Sandwich", price: 150 }
-            ],
-            drinks: [
-                { name: "Kitkat Shake", price: 130 }, { name: "Hot Kullad Tea", price: 20 },
-                { name: "Cold Coffee", price: 100 }, { name: "Virgin Mojito", price: 100 }
-            ]
+            chinese: [{ name: "Chicken Pizza", price: 250 }, { name: "Chicken Burger", price: 120 }, { name: "Chicken Maggie", price: 140 }]
         };
 
-        let cart = []; let userLocation = "";
+        let cart = [];
 
-        // FORCE STARTUP LOGIC
-        window.addEventListener('load', () => {
-            const splash = document.getElementById('launch-screen');
-            const selector = document.getElementById('restaurant-selector');
-
+        window.onload = () => {
             setTimeout(() => {
-                splash.style.opacity = '0';
+                document.getElementById('launch-screen').style.opacity = '0';
                 setTimeout(() => {
-                    splash.style.display = 'none';
-                    selector.style.display = 'flex';
-                    setTimeout(() => {
-                        selector.style.opacity = '1';
-                        selector.style.transform = 'translateY(0)';
-                    }, 50);
+                    document.getElementById('launch-screen').style.display = 'none';
+                    const rs = document.getElementById('restaurant-selector');
+                    rs.style.display = 'flex';
+                    setTimeout(() => { rs.style.opacity = '1'; rs.style.transform = 'translateY(0)'; rs.style.pointerEvents = 'auto'; }, 50);
                 }, 1000);
-            }, 4000);
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-                    document.getElementById('city-badge').innerText = "Location Secured ✓";
-                });
-            }
-        });
+            }, 3000);
+        };
 
         function openRestaurant() {
-            const selector = document.getElementById('restaurant-selector');
             const app = document.getElementById('menu-app');
-            selector.style.opacity = '0';
-            setTimeout(() => {
-                selector.style.display = 'none';
-                app.style.display = 'flex';
-                setTimeout(() => {
-                    app.style.opacity = '1';
-                    app.style.transform = 'translateX(0)';
-                }, 50);
-                showSection('veg');
-            }, 500);
+            app.style.display = 'flex';
+            setTimeout(() => { app.style.opacity = '1'; app.style.transform = 'translateX(0)'; app.style.pointerEvents = 'auto'; }, 50);
+            showSection('veg');
         }
 
-        function goHome() {
-            location.reload(); // Simplest way to return without bugs
-        }
+        function goHome() { location.reload(); }
 
         function showSection(id) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('text-red-600'));
@@ -157,16 +120,45 @@
                     <h3 class="font-black text-md uppercase italic text-white tracking-tighter mb-4">${i.name}</h3>
                     <div class="flex flex-col gap-3">
                         ${i.sizes ? Object.entries(i.sizes).map(([s, p]) => `
-                            <button onclick="add('${i.name} (${s})', ${p})" class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-3xl text-[10px] font-black uppercase tracking-widest flex justify-between items-center px-8 active:bg-red-600"><span>${s}</span> <span class="text-red-500 italic font-black">₹${p}</span></button>`).join('') : `
-                            <button onclick="add('${i.name}', ${i.price})" class="w-full bg-zinc-800 border border-zinc-700 p-5 rounded-3xl font-black text-xs uppercase flex justify-between items-center px-8 active:scale-95 transition-all italic tracking-tighter"><span>Add to Cart</span> <span class="text-red-500 font-black italic">₹${i.price}</span></button>`}
+                            <button onclick="addToCart('${i.name} ${s}', ${p})" class="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-3xl text-[10px] font-black uppercase flex justify-between items-center px-8 active:bg-red-600"><span>${s}</span> <span class="text-red-500 italic font-black">₹${p}</span></button>`).join('') : `
+                            <button onclick="addToCart('${i.name}', ${i.price})" class="w-full bg-zinc-800 border border-zinc-700 p-5 rounded-3xl font-black text-xs uppercase flex justify-between items-center px-8 active:scale-95 italic"><span>Add to Cart</span> <span class="text-red-500 font-black italic">₹${i.price}</span></button>`}
                     </div>
                 </div>`).join('');
         }
 
-        function add(n, p) { cart.push({name:n, price:p}); alert("Added: " + n); }
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            alert(`Added ${name} to cart!`);
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            document.getElementById('cart-total').innerText = '₹' + cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-items').innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
+                    <div><p class="font-bold text-sm uppercase italic">${item.name}</p><p class="text-red-600 font-black text-xs">₹${item.price}</p></div>
+                    <button onclick="cart.splice(${index},1); updateCartUI();" class="text-zinc-600">Remove</button>
+                </div>`).join('');
+        }
+
+        function toggleCart() { document.getElementById('cart-ui').classList.toggle('translate-y-full'); }
+        function toggleAI() { document.getElementById('ai-ui').classList.toggle('translate-y-full'); }
+
+        function askAI() {
+            const input = document.getElementById('ai-input').value.toLowerCase();
+            const msgBox = document.getElementById('ai-messages');
+            let response = "I can help with TBC Menu prices!";
+            if(input.includes("tandoori")) response = "Tandoori Chicken starts at ₹250 for Half.";
+            if(input.includes("butter chicken")) response = "Butter Chicken is ₹180 (Q), ₹300 (H), and ₹550 (F).";
+            msgBox.innerHTML += `<div class="text-red-600 text-right font-black uppercase text-[10px]">You: ${input}</div>`;
+            msgBox.innerHTML += `<div class="text-zinc-300 font-bold text-[10px]">AI: ${response}</div>`;
+            document.getElementById('ai-input').value = "";
+        }
+
         function sendOrder() {
-            const text = encodeURIComponent(`*ORDER: DATTA DASH*\nLocation: ${userLocation}\nItems: ${cart.map(i => i.name).join(', ')}\nTotal: ₹${cart.reduce((s, i) => s + i.price, 0)}`);
-            window.location.href = `https://wa.me/919346825634?text=${text}`;
+            const orderText = encodeURIComponent(`*NEW ORDER FROM DATTA DASH*\n\nItems:\n${cart.map(i => `- ${i.name} (₹${i.price})`).join('\n')}\n\n*Total: ₹${cart.reduce((s, i) => s + i.price, 0)}*`);
+            window.location.href = `https://wa.me/919346825634?text=${orderText}`;
         }
     </script>
 </body>
