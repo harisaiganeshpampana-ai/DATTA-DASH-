@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Datta Dash</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial;
 background:#f2f2f2;
 }
 
-/* TOP BAR */
-
+/* Top bar */
 .topbar{
 background:white;
 padding:15px;
@@ -38,8 +34,7 @@ border:1px solid #ddd;
 font-size:16px;
 }
 
-/* RESTAURANT CARD */
-
+/* Restaurant card */
 .restaurant-card{
 background:white;
 margin:15px;
@@ -59,34 +54,28 @@ object-fit:cover;
 padding:15px;
 }
 
-.restaurant-info h2{
-margin:0;
-font-size:20px;
-}
-
-.restaurant-info p{
-color:#666;
-margin-top:5px;
-}
-
-/* MENU */
-
-.menu{
-display:none;
-}
-
-.menu-header{
+/* Category buttons */
+.categories{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:10px;
 background:white;
-padding:15px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
+.cat-btn{
+padding:10px 16px;
+background:#fc8019;
+color:white;
+border-radius:20px;
+cursor:pointer;
+white-space:nowrap;
+}
+
+/* Menu items */
 .menu-section{
-margin:20px;
-}
-
-.menu-section h2{
-margin-bottom:10px;
+padding:15px;
+display:none;
 }
 
 .item{
@@ -96,159 +85,153 @@ border-radius:10px;
 margin-bottom:10px;
 display:flex;
 justify-content:space-between;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
 .back{
+margin:10px;
 color:#fc8019;
 cursor:pointer;
-margin-bottom:10px;
 }
 
 </style>
-
 </head>
 
 <body>
-
 
 <!-- HOME PAGE -->
 
 <div id="home">
 
 <div class="topbar">
-
 <div class="logo">Datta Dash</div>
-
-<input class="search" placeholder="Search for restaurants or dishes">
-
+<input class="search" placeholder="Search restaurants or dishes">
 </div>
 
-
-<!-- TBC RESTAURANT -->
-
-<div class="restaurant-card" onclick="openTBC()">
-
+<div class="restaurant-card" onclick="openMenu()">
 <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-
 <div class="restaurant-info">
-
 <h2>TBC Restaurant</h2>
-
 <p>⭐ 4.2 • Indian • ₹300 for two</p>
-
 <p>30-40 mins</p>
-
+</div>
 </div>
 
 </div>
 
-</div>
+<!-- MENU PAGE -->
 
-
-
-<!-- TBC MENU PAGE -->
-
-<div id="tbcMenu" class="menu">
-
-<div class="menu-header">
+<div id="menuPage" style="display:none">
 
 <div class="back" onclick="goHome()">← Back</div>
 
-<h1>TBC Restaurant</h1>
+<h2 style="padding-left:15px">TBC Restaurant Menu</h2>
 
-<p>North Indian • Chinese • Biryani</p>
+<!-- CATEGORY BUTTONS -->
+
+<div class="categories">
+
+<div class="cat-btn" onclick="showCategory('shakes')">Shakes</div>
+<div class="cat-btn" onclick="showCategory('veg')">Veg</div>
+<div class="cat-btn" onclick="showCategory('nonveg')">Non-Veg</div>
+<div class="cat-btn" onclick="showCategory('biryani')">Biryani</div>
+<div class="cat-btn" onclick="showCategory('burgers')">Burgers</div>
 
 </div>
-
 
 <!-- SHAKES -->
 
-<div class="menu-section">
-
-<h2>Shakes</h2>
+<div id="shakes" class="menu-section">
 
 <div class="item"><span>Kitkat Shake</span><span>₹130</span></div>
+<div class="item"><span>Vanilla Shake</span><span>₹120</span></div>
 <div class="item"><span>Oreo Shake</span><span>₹130</span></div>
 <div class="item"><span>Mango Shake</span><span>₹120</span></div>
-<div class="item"><span>Vanilla Shake</span><span>₹120</span></div>
+<div class="item"><span>Butter Scotch Shake</span><span>₹130</span></div>
+<div class="item"><span>Blue Berry Shake</span><span>₹150</span></div>
 
 </div>
-
 
 <!-- VEG -->
 
-<div class="menu-section">
+<div id="veg" class="menu-section">
 
-<h2>Veg Dishes</h2>
-
-<div class="item"><span>Paneer Butter Masala</span><span>₹220</span></div>
-<div class="item"><span>Kadhai Paneer</span><span>₹220</span></div>
+<div class="item"><span>Aloo Gobhi</span><span>₹140</span></div>
+<div class="item"><span>Aloo Jeera</span><span>₹120</span></div>
+<div class="item"><span>Chana Masala</span><span>₹150</span></div>
+<div class="item"><span>Mushroom Masala</span><span>₹200</span></div>
+<div class="item"><span>Mushroom Curry</span><span>₹190</span></div>
 <div class="item"><span>Mix Veg</span><span>₹160</span></div>
-<div class="item"><span>Dal Tadka</span><span>₹140</span></div>
+<div class="item"><span>Malai Kofta</span><span>₹220</span></div>
 
 </div>
 
+<!-- NON VEG -->
 
-<!-- CHICKEN -->
+<div id="nonveg" class="menu-section">
 
-<div class="menu-section">
-
-<h2>Chicken Curries</h2>
-
-<h3>Quarter</h3>
-
+<h3>Chicken Curries (Quarter)</h3>
 <div class="item"><span>Butter Chicken</span><span>₹180</span></div>
 <div class="item"><span>Kadai Chicken</span><span>₹180</span></div>
+<div class="item"><span>Chicken Masala</span><span>₹180</span></div>
 
-
-<h3>Half</h3>
-
+<h3>Chicken Curries (Half)</h3>
 <div class="item"><span>Butter Chicken</span><span>₹300</span></div>
 <div class="item"><span>Kadai Chicken</span><span>₹300</span></div>
+<div class="item"><span>Chicken Masala</span><span>₹300</span></div>
 
-
-<h3>Full</h3>
-
+<h3>Chicken Curries (Full)</h3>
 <div class="item"><span>Butter Chicken</span><span>₹550</span></div>
 <div class="item"><span>Kadai Chicken</span><span>₹550</span></div>
+<div class="item"><span>Chicken Masala</span><span>₹550</span></div>
 
 </div>
 
+<!-- BIRYANI -->
+
+<div id="biryani" class="menu-section">
+
+<div class="item"><span>Egg Biryani</span><span>₹150</span></div>
+<div class="item"><span>Chicken Hyderabadi Biryani</span><span>₹200</span></div>
+
+</div>
 
 <!-- BURGERS -->
 
-<div class="menu-section">
-
-<h2>Burgers</h2>
+<div id="burgers" class="menu-section">
 
 <div class="item"><span>Aloo Tikki Burger</span><span>₹50</span></div>
+<div class="item"><span>Veggie Burger</span><span>₹70</span></div>
 <div class="item"><span>Paneer Burger</span><span>₹90</span></div>
 <div class="item"><span>Tandoori Burger</span><span>₹100</span></div>
 
 </div>
 
-
 </div>
-
 
 <script>
 
-function openTBC(){
-
+function openMenu(){
 document.getElementById("home").style.display="none";
-document.getElementById("tbcMenu").style.display="block";
-
+document.getElementById("menuPage").style.display="block";
 }
 
 function goHome(){
-
-document.getElementById("tbcMenu").style.display="none";
+document.getElementById("menuPage").style.display="none";
 document.getElementById("home").style.display="block";
+}
+
+function showCategory(cat){
+
+let sections=document.querySelectorAll(".menu-section");
+
+sections.forEach(s=>s.style.display="none");
+
+document.getElementById(cat).style.display="block";
 
 }
 
 </script>
-
 
 </body>
 </html>
