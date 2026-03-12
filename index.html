@@ -3,106 +3,28 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datta Dash</title>
-
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#f2f2f2;
-}
+body{margin:0;font-family:Arial;background:#f2f2f2}
+.topbar{background:#fff;padding:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.logo{font-size:22px;font-weight:bold}
+.search{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ddd;font-size:16px}
 
-/* Top bar */
-.topbar{
-background:white;
-padding:15px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-position:sticky;
-top:0;
-}
+.restaurant-card{background:#fff;margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);cursor:pointer}
+.restaurant-card img{width:100%;height:200px;object-fit:cover}
+.restaurant-info{padding:15px}
 
-.logo{
-font-size:22px;
-font-weight:bold;
-}
+.categories{display:flex;overflow-x:auto;gap:10px;padding:10px;background:#fff}
+.cat-btn{padding:10px 16px;background:#fc8019;color:#fff;border-radius:20px;cursor:pointer;white-space:nowrap}
 
-.search{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:10px;
-border:1px solid #ddd;
-font-size:16px;
-}
-
-/* Restaurant card */
-.restaurant-card{
-background:white;
-margin:15px;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-cursor:pointer;
-}
-
-.restaurant-card img{
-width:100%;
-height:200px;
-object-fit:cover;
-}
-
-.restaurant-info{
-padding:15px;
-}
-
-/* Category buttons */
-.categories{
-display:flex;
-overflow-x:auto;
-gap:10px;
-padding:10px;
-background:white;
-}
-
-.cat-btn{
-padding:10px 16px;
-background:#fc8019;
-color:white;
-border-radius:20px;
-cursor:pointer;
-white-space:nowrap;
-}
-
-/* Menu items */
-.menu-section{
-padding:15px;
-display:none;
-}
-
-.item{
-background:white;
-padding:12px;
-border-radius:10px;
-margin-bottom:10px;
-display:flex;
-justify-content:space-between;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-
-.back{
-margin:10px;
-color:#fc8019;
-cursor:pointer;
-}
-
+.menu-section{padding:15px;display:none}
+.item{background:#fff;padding:12px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.back{margin:10px;color:#fc8019;cursor:pointer}
 </style>
 </head>
 
 <body>
 
-<!-- HOME PAGE -->
-
 <div id="home">
-
 <div class="topbar">
 <div class="logo">Datta Dash</div>
 <input class="search" placeholder="Search restaurants or dishes">
@@ -116,10 +38,8 @@ cursor:pointer;
 <p>30-40 mins</p>
 </div>
 </div>
-
 </div>
 
-<!-- MENU PAGE -->
 
 <div id="menuPage" style="display:none">
 
@@ -127,35 +47,46 @@ cursor:pointer;
 
 <h2 style="padding-left:15px">TBC Restaurant Menu</h2>
 
-<!-- CATEGORY BUTTONS -->
-
 <div class="categories">
-
-<div class="cat-btn" onclick="showCategory('shakes')">Shakes</div>
+<div class="cat-btn" onclick="showCategory('breads')">Roti/Breads</div>
+<div class="cat-btn" onclick="showCategory('dal')">Dal</div>
 <div class="cat-btn" onclick="showCategory('veg')">Veg</div>
-<div class="cat-btn" onclick="showCategory('nonveg')">Non-Veg</div>
-<div class="cat-btn" onclick="showCategory('biryani')">Biryani</div>
+<div class="cat-btn" onclick="showCategory('paneer')">Paneer</div>
+<div class="cat-btn" onclick="showCategory('rice')">Rice</div>
+<div class="cat-btn" onclick="showCategory('pizza')">Pizza</div>
+<div class="cat-btn" onclick="showCategory('chinese')">Chinese</div>
 <div class="cat-btn" onclick="showCategory('burgers')">Burgers</div>
-
+<div class="cat-btn" onclick="showCategory('shakes')">Shakes</div>
+<div class="cat-btn" onclick="showCategory('nonveg')">Non Veg</div>
 </div>
 
-<!-- SHAKES -->
 
-<div id="shakes" class="menu-section">
-
-<div class="item"><span>Kitkat Shake</span><span>₹130</span></div>
-<div class="item"><span>Vanilla Shake</span><span>₹120</span></div>
-<div class="item"><span>Oreo Shake</span><span>₹130</span></div>
-<div class="item"><span>Mango Shake</span><span>₹120</span></div>
-<div class="item"><span>Butter Scotch Shake</span><span>₹130</span></div>
-<div class="item"><span>Blue Berry Shake</span><span>₹150</span></div>
-
+<div id="breads" class="menu-section">
+<div class="item"><span>Tawa Roti</span><span>₹10/12</span></div>
+<div class="item"><span>Plain Roti</span><span>₹12</span></div>
+<div class="item"><span>Butter Roti</span><span>₹14</span></div>
+<div class="item"><span>Lachha Parantha</span><span>₹35</span></div>
+<div class="item"><span>Butter Naan</span><span>₹35</span></div>
+<div class="item"><span>Plain Naan</span><span>₹30</span></div>
+<div class="item"><span>ChurChur Naan</span><span>₹45</span></div>
+<div class="item"><span>Missi Roti</span><span>₹35</span></div>
+<div class="item"><span>Stuff Naan</span><span>₹60</span></div>
+<div class="item"><span>Paneer Parantha</span><span>₹80</span></div>
+<div class="item"><span>Aloo Parantha</span><span>₹70</span></div>
+<div class="item"><span>Garlic Naan</span><span>₹70</span></div>
+<div class="item"><span>Garlic Stuff Naan</span><span>₹80</span></div>
 </div>
 
-<!-- VEG -->
+
+<div id="dal" class="menu-section">
+<div class="item"><span>Dal Tadka</span><span>₹140</span></div>
+<div class="item"><span>Dal Fry</span><span>₹130</span></div>
+<div class="item"><span>Dal Makhni</span><span>₹200</span></div>
+<div class="item"><span>Dal Punjabi</span><span>₹220</span></div>
+</div>
+
 
 <div id="veg" class="menu-section">
-
 <div class="item"><span>Aloo Gobhi</span><span>₹140</span></div>
 <div class="item"><span>Aloo Jeera</span><span>₹120</span></div>
 <div class="item"><span>Chana Masala</span><span>₹150</span></div>
@@ -163,51 +94,69 @@ cursor:pointer;
 <div class="item"><span>Mushroom Curry</span><span>₹190</span></div>
 <div class="item"><span>Mix Veg</span><span>₹160</span></div>
 <div class="item"><span>Malai Kofta</span><span>₹220</span></div>
-
+<div class="item"><span>Pindi Chana</span><span>₹170</span></div>
 </div>
 
-<!-- NON VEG -->
 
-<div id="nonveg" class="menu-section">
-
-<h3>Chicken Curries (Quarter)</h3>
-<div class="item"><span>Butter Chicken</span><span>₹180</span></div>
-<div class="item"><span>Kadai Chicken</span><span>₹180</span></div>
-<div class="item"><span>Chicken Masala</span><span>₹180</span></div>
-
-<h3>Chicken Curries (Half)</h3>
-<div class="item"><span>Butter Chicken</span><span>₹300</span></div>
-<div class="item"><span>Kadai Chicken</span><span>₹300</span></div>
-<div class="item"><span>Chicken Masala</span><span>₹300</span></div>
-
-<h3>Chicken Curries (Full)</h3>
-<div class="item"><span>Butter Chicken</span><span>₹550</span></div>
-<div class="item"><span>Kadai Chicken</span><span>₹550</span></div>
-<div class="item"><span>Chicken Masala</span><span>₹550</span></div>
-
+<div id="paneer" class="menu-section">
+<div class="item"><span>Matar Paneer</span><span>₹190</span></div>
+<div class="item"><span>Paneer Tikka Butter Masala</span><span>₹230</span></div>
+<div class="item"><span>Kadhai Paneer</span><span>₹220</span></div>
+<div class="item"><span>Shahi Paneer</span><span>₹220</span></div>
+<div class="item"><span>Paneer Bhurji</span><span>₹270</span></div>
+<div class="item"><span>Paneer Lababdar</span><span>₹230</span></div>
+<div class="item"><span>Paneer Butter Masala</span><span>₹220</span></div>
 </div>
 
-<!-- BIRYANI -->
 
-<div id="biryani" class="menu-section">
-
-<div class="item"><span>Egg Biryani</span><span>₹150</span></div>
-<div class="item"><span>Chicken Hyderabadi Biryani</span><span>₹200</span></div>
-
+<div id="rice" class="menu-section">
+<div class="item"><span>Veg Biryani</span><span>₹150</span></div>
+<div class="item"><span>Jeera Rice</span><span>₹100</span></div>
+<div class="item"><span>Plain Rice</span><span>₹80</span></div>
+<div class="item"><span>Green Peas Rice</span><span>₹110</span></div>
+<div class="item"><span>Veg Pulao</span><span>₹140</span></div>
+<div class="item"><span>Paneer Tikka Biryani</span><span>₹180</span></div>
 </div>
 
-<!-- BURGERS -->
+
+<div id="pizza" class="menu-section">
+<div class="item"><span>Onion Tomato Pizza</span><span>₹160</span></div>
+<div class="item"><span>Farm Fresh Pizza</span><span>₹180</span></div>
+<div class="item"><span>Margherita Pizza</span><span>₹150</span></div>
+<div class="item"><span>Paneer Tikka Pizza</span><span>₹200</span></div>
+<div class="item"><span>Onion Pizza</span><span>₹100</span></div>
+</div>
+
 
 <div id="burgers" class="menu-section">
-
 <div class="item"><span>Aloo Tikki Burger</span><span>₹50</span></div>
 <div class="item"><span>Veggie Burger</span><span>₹70</span></div>
 <div class="item"><span>Paneer Burger</span><span>₹90</span></div>
 <div class="item"><span>Tandoori Burger</span><span>₹100</span></div>
+</div>
 
+
+<div id="shakes" class="menu-section">
+<div class="item"><span>Kitkat Shake</span><span>₹130</span></div>
+<div class="item"><span>Vanilla Shake</span><span>₹120</span></div>
+<div class="item"><span>Oreo Shake</span><span>₹130</span></div>
+<div class="item"><span>Mango Shake</span><span>₹120</span></div>
+<div class="item"><span>Butter Scotch Shake</span><span>₹130</span></div>
+<div class="item"><span>Blue Berry Shake</span><span>₹150</span></div>
+</div>
+
+
+<div id="nonveg" class="menu-section">
+<div class="item"><span>Butter Chicken (Half)</span><span>₹300</span></div>
+<div class="item"><span>Butter Chicken (Full)</span><span>₹550</span></div>
+<div class="item"><span>Kadai Chicken (Half)</span><span>₹300</span></div>
+<div class="item"><span>Kadai Chicken (Full)</span><span>₹550</span></div>
+<div class="item"><span>Chicken Hyderabadi Biryani</span><span>₹200</span></div>
+<div class="item"><span>Egg Biryani</span><span>₹150</span></div>
 </div>
 
 </div>
+
 
 <script>
 
@@ -222,13 +171,9 @@ document.getElementById("home").style.display="block";
 }
 
 function showCategory(cat){
-
 let sections=document.querySelectorAll(".menu-section");
-
 sections.forEach(s=>s.style.display="none");
-
 document.getElementById(cat).style.display="block";
-
 }
 
 </script>
