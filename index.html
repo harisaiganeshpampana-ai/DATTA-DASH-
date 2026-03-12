@@ -1,86 +1,158 @@
-<div id="splash" class="h-screen flex items-center justify-center bg-red-500 text-white text-4xl font-bold">
+<div id="splash" class="splash-screen">
+
+<div class="logo-circle">
 Datta Dash
 </div>
 
-<script>
+<p class="subtitle">Welcome to Datta Dash</p>
 
-setTimeout(function(){
+</div><style>
+
+body{
+margin:0;
+font-family:sans-serif;
+}
+
+.splash-screen{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#fc8019;
+color:white;
+}
+
+.logo-circle{
+width:200px;
+height:200px;
+border-radius:50%;
+background:white;
+color:#fc8019;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:bold;
+}
+
+.subtitle{
+margin-top:20px;
+font-size:20px;
+}
+
+</style><script>
+
+setTimeout(()=>{
 
 document.getElementById("splash").style.display="none";
 document.getElementById("home").style.display="block";
 
 },3000)
 
-</script><div id="home" style="display:none" class="p-6 text-center">
+</script><div id="home" style="display:none">
 
-<h1 class="text-3xl font-bold mb-4">Welcome to Datta Dash</h1>
+<!-- top bar -->
 
-<img 
-src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
-class="rounded-xl shadow-lg mx-auto w-80">
+<div class="topbar">
 
-<h2 class="text-xl mt-4 font-semibold">TBC Restaurant</h2>
+<h2>Datta Dash</h2>
 
-<button onclick="openRestaurant()" 
-class="mt-4 bg-red-500 text-white px-6 py-2 rounded">
+<input type="text" placeholder="Search food or restaurants">
 
-View Menu
-
-</button>
-
-</div><div id="restaurant" style="display:none" class="p-6">
-
-<h1 class="text-2xl font-bold mb-6">TBC Restaurant Menu</h1>
-
-<!-- NON VEG -->
-<h2 class="text-xl font-semibold mb-3">Non Veg</h2>
-
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Butter Chicken</span>
-<span>₹300</span>
-</div>
-
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Kadai Chicken</span>
-<span>₹300</span>
 </div>
 
 
-<!-- BURGERS -->
+<!-- restaurant cards -->
 
-<h2 class="text-xl font-semibold mt-6 mb-3">Burgers</h2>
+<div class="restaurant-list">
 
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Aloo Tikki Burger</span>
-<span>₹50</span>
+
+<div class="card" onclick="openRestaurant()">
+
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
+
+<h3>TBC Restaurant</h3>
+
+<p>North Indian • Chinese • Biryani</p>
+
 </div>
 
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Paneer Burger</span>
-<span>₹90</span>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+
+<h3>Burger Hub</h3>
+
+<p>Burgers • Fast Food</p>
+
 </div>
 
 
-<!-- SHAKES -->
+<div class="card">
 
-<h2 class="text-xl font-semibold mt-6 mb-3">Shakes</h2>
+<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd">
 
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Oreo Shake</span>
-<span>₹130</span>
+<h3>Green Veg Kitchen</h3>
+
+<p>Pure Veg</p>
+
 </div>
 
-<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
-<span>Mango Shake</span>
-<span>₹120</span>
 </div>
 
-</div><script>
+</div><style>
+
+.topbar{
+background:white;
+padding:15px;
+position:sticky;
+top:0;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.topbar input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+.restaurant-list{
+padding:15px;
+}
+
+.card{
+background:white;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+overflow:hidden;
+cursor:pointer;
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.card h3{
+margin:10px;
+}
+
+.card p{
+margin:0 10px 10px;
+color:gray;
+}
+
+</style><script>
 
 function openRestaurant(){
 
-document.getElementById("home").style.display="none";
-document.getElementById("restaurant").style.display="block";
+window.location="#menu"
 
 }
 
