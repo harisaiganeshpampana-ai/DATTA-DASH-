@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datta Dash</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Arial;
-background:#f5f5f5;
+font-family:Arial, sans-serif;
+background:#f4f4f4;
 }
+
+/* HEADER */
 
 .header{
 background:white;
 padding:15px;
 box-shadow:0 2px 10px rgba(0,0,0,0.1);
+font-weight:bold;
+font-size:22px;
 }
+
+/* RESTAURANT CARD */
+
+.restaurant{
+background:white;
+margin:15px;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 4px 15px rgba(0,0,0,0.15);
+cursor:pointer;
+}
+
+.restaurant img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.restaurant-info{
+padding:15px;
+}
+
+/* CATEGORY TABS */
 
 .tabs{
 display:flex;
@@ -28,24 +53,27 @@ background:white;
 }
 
 .tab{
-padding:10px 16px;
 background:#ff7a00;
 color:white;
+padding:10px 16px;
 border-radius:20px;
-cursor:pointer;
 white-space:nowrap;
+cursor:pointer;
 font-weight:bold;
 }
 
+/* MENU SECTIONS */
+
 .section{
-padding:10px;
 display:none;
+padding:10px;
 }
+
+/* FOOD CARD */
 
 .food-card{
 display:flex;
 justify-content:space-between;
-align-items:center;
 background:white;
 margin-bottom:12px;
 border-radius:12px;
@@ -58,199 +86,190 @@ max-width:60%;
 }
 
 .food-title{
-font-size:18px;
 font-weight:bold;
-margin-bottom:4px;
+font-size:18px;
+margin-bottom:5px;
 }
 
 .food-price{
-color:#444;
 font-weight:bold;
+color:#444;
 }
 
 .food-image{
 width:110px;
 height:110px;
-border-radius:12px;
+border-radius:10px;
 object-fit:cover;
 }
 
-.add-btn{
+.add{
+margin-top:6px;
 background:#00a86b;
-color:white;
 border:none;
+color:white;
 padding:6px 14px;
 border-radius:8px;
 font-weight:bold;
-margin-top:6px;
+}
+
+.back{
+padding:10px;
+color:#ff7a00;
+cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
-<h2>TBC Restaurant Menu</h2>
+<!-- HOME PAGE -->
+
+<div id="home">
+
+<div class="header">Datta Dash</div>
+
+<div class="restaurant" onclick="openMenu()">
+
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
+
+<div class="restaurant-info">
+
+<h2>TBC Restaurant</h2>
+<p>⭐ 4.2 • Indian • ₹300 for two</p>
+<p>30-40 mins</p>
+
 </div>
+
+</div>
+
+</div>
+
+
+<!-- MENU PAGE -->
+
+<div id="menu" style="display:none">
+
+<div class="back" onclick="goHome()">← Back</div>
+
+<div class="header">TBC Restaurant Menu</div>
 
 <div class="tabs">
 
-<div class="tab" onclick="showSection('biryani')">Biryani</div>
-<div class="tab" onclick="showSection('veg')">Veg</div>
-<div class="tab" onclick="showSection('paneer')">Paneer</div>
-<div class="tab" onclick="showSection('burgers')">Burgers</div>
-<div class="tab" onclick="showSection('shakes')">Shakes</div>
-<div class="tab" onclick="showSection('nonveg')">Non-Veg</div>
+<div class="tab" onclick="show('biryani')">Biryani</div>
+<div class="tab" onclick="show('chicken')">Chicken</div>
+<div class="tab" onclick="show('fish')">Fish</div>
+<div class="tab" onclick="show('veg')">Veg</div>
+<div class="tab" onclick="show('rotis')">Rotis</div>
+<div class="tab" onclick="show('burgers')">Burgers</div>
+<div class="tab" onclick="show('shakes')">Shakes</div>
 
 </div>
+
 
 <!-- BIRYANI -->
 
 <div id="biryani" class="section">
 
 <div class="food-card">
-
 <div class="food-info">
 <div class="food-title">Chicken Biryani</div>
 <div class="food-price">₹200</div>
-<button class="add-btn">ADD</button>
+<button class="add">ADD</button>
 </div>
-
 <img class="food-image" src="https://images.unsplash.com/photo-1604908176997-43134c9a7f2a">
-
 </div>
-
 
 <div class="food-card">
-
 <div class="food-info">
 <div class="food-title">Hyderabadi Chicken Biryani</div>
 <div class="food-price">₹200</div>
-<button class="add-btn">ADD</button>
+<button class="add">ADD</button>
 </div>
-
-<img class="food-image" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7">
-
+<img class="food-image" src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a">
 </div>
-
 
 <div class="food-card">
-
 <div class="food-info">
 <div class="food-title">Egg Biryani</div>
 <div class="food-price">₹150</div>
-<button class="add-btn">ADD</button>
+<button class="add">ADD</button>
 </div>
-
 <img class="food-image" src="https://images.unsplash.com/photo-1642821373181-696a54913e93">
-
 </div>
 
 </div>
 
 
-<!-- VEG -->
+<!-- CHICKEN CURRIES -->
 
-<div id="veg" class="section">
+<div id="chicken" class="section">
+
+<h3>Chicken Curries</h3>
 
 <div class="food-card">
-
-<div class="food-info">
-<div class="food-title">Aloo Gobhi</div>
-<div class="food-price">₹140</div>
-<button class="add-btn">ADD</button>
-</div>
-
-<img class="food-image" src="https://images.unsplash.com/photo-1601050690597-df0568f70950">
-
-</div>
-
-<div class="food-card">
-
-<div class="food-info">
-<div class="food-title">Mix Veg</div>
-<div class="food-price">₹160</div>
-<button class="add-btn">ADD</button>
-</div>
-
-<img class="food-image" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c">
-
-</div>
-
-</div>
-
-
-<!-- BURGERS -->
-
-<div id="burgers" class="section">
-
-<div class="food-card">
-
-<div class="food-info">
-<div class="food-title">Paneer Burger</div>
-<div class="food-price">₹90</div>
-<button class="add-btn">ADD</button>
-</div>
-
-<img class="food-image" src="https://images.unsplash.com/photo-1550547660-d9450f859349">
-
-</div>
-
-</div>
-
-
-<!-- SHAKES -->
-
-<div id="shakes" class="section">
-
-<div class="food-card">
-
-<div class="food-info">
-<div class="food-title">Kitkat Shake</div>
-<div class="food-price">₹130</div>
-<button class="add-btn">ADD</button>
-</div>
-
-<img class="food-image" src="https://images.unsplash.com/photo-1572490122747-3968b75cc699">
-
-</div>
-
-</div>
-
-
-<!-- NON VEG -->
-
-<div id="nonveg" class="section">
-
-<div class="food-card">
-
 <div class="food-info">
 <div class="food-title">Butter Chicken</div>
-<div class="food-price">₹300</div>
-<button class="add-btn">ADD</button>
+<div class="food-price">Half ₹300 | Full ₹550</div>
+<button class="add">ADD</button>
 </div>
-
 <img class="food-image" src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398">
+</div>
 
+<div class="food-card">
+<div class="food-info">
+<div class="food-title">Kadai Chicken</div>
+<div class="food-price">Half ₹300 | Full ₹550</div>
+<button class="add">ADD</button>
+</div>
+<img class="food-image" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7">
 </div>
 
 </div>
+
+
+<!-- FISH -->
+
+<div id="fish" class="section">
+
+<div class="food-card">
+<div class="food-info">
+<div class="food-title">Fish Curry</div>
+<div class="food-price">₹250</div>
+<button class="add">ADD</button>
+</div>
+<img class="food-image" src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62">
+</div>
+
+</div>
+
+
+</div>
+
 
 <script>
 
-function showSection(id){
+function openMenu(){
+document.getElementById("home").style.display="none";
+document.getElementById("menu").style.display="block";
+show("biryani");
+}
 
-document.querySelectorAll(".section").forEach(s=>{
-s.style.display="none";
+function goHome(){
+document.getElementById("menu").style.display="none";
+document.getElementById("home").style.display="block";
+}
+
+function show(id){
+
+document.querySelectorAll(".section").forEach(sec=>{
+sec.style.display="none";
 });
 
 document.getElementById(id).style.display="block";
 
 }
-
-showSection("biryani")
 
 </script>
 
