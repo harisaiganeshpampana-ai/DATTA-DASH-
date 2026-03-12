@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datta Dash</title>
 
@@ -12,6 +11,8 @@ margin:0;
 font-family:Arial;
 background:#f2f2f2;
 }
+
+/* HEADER */
 
 .topbar{
 background:white;
@@ -33,6 +34,8 @@ border:1px solid #ddd;
 font-size:16px;
 }
 
+/* RESTAURANT CARD */
+
 .restaurant-card{
 background:white;
 margin:15px;
@@ -52,6 +55,8 @@ object-fit:cover;
 padding:15px;
 }
 
+/* CATEGORY BUTTONS */
+
 .categories{
 display:flex;
 overflow-x:auto;
@@ -68,6 +73,34 @@ border-radius:20px;
 cursor:pointer;
 white-space:nowrap;
 }
+
+/* CATEGORY POSTERS */
+
+.poster-row{
+display:flex;
+overflow-x:auto;
+gap:15px;
+padding:15px;
+}
+
+.poster{
+min-width:120px;
+text-align:center;
+}
+
+.poster img{
+width:120px;
+height:120px;
+border-radius:15px;
+object-fit:cover;
+}
+
+.poster p{
+margin-top:5px;
+font-weight:bold;
+}
+
+/* MENU ITEMS */
 
 .menu-section{
 padding:15px;
@@ -131,6 +164,35 @@ cursor:pointer;
 <h2 style="padding-left:15px">TBC Restaurant Menu</h2>
 
 
+<!-- CATEGORY POSTERS -->
+
+<div class="poster-row">
+
+<div class="poster">
+<img src="https://images.unsplash.com/photo-1604908176997-43134c9a7f2a">
+<p>Biryani</p>
+</div>
+
+<div class="poster">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+<p>Burgers</p>
+</div>
+
+<div class="poster">
+<img src="https://images.unsplash.com/photo-1551024601-bec78aea704b">
+<p>Shakes</p>
+</div>
+
+<div class="poster">
+<img src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24">
+<p>Pizza</p>
+</div>
+
+</div>
+
+
+<!-- CATEGORY BUTTONS -->
+
 <div class="categories">
 
 <div class="cat-btn" onclick="showCategory('veg')">Veg</div>
@@ -139,7 +201,20 @@ cursor:pointer;
 <div class="cat-btn" onclick="showCategory('pizza')">Pizza</div>
 <div class="cat-btn" onclick="showCategory('burgers')">Burgers</div>
 <div class="cat-btn" onclick="showCategory('shakes')">Shakes</div>
+<div class="cat-btn" onclick="showCategory('biryani')">Biryani</div>
 <div class="cat-btn" onclick="showCategory('nonveg')">Non-Veg</div>
+
+</div>
+
+
+<!-- BIRYANI -->
+
+<div id="biryani" class="menu-section">
+
+<div class="item"><span>Chicken Biryani</span><span>₹200</span></div>
+<div class="item"><span>Hyderabadi Chicken Biryani</span><span>₹200</span></div>
+<div class="item"><span>Hyderabadi Chicken Biryani Half</span><span>₹120</span></div>
+<div class="item"><span>Egg Biryani</span><span>₹150</span></div>
 
 </div>
 
@@ -155,53 +230,6 @@ cursor:pointer;
 <div class="item"><span>Mushroom Curry</span><span>₹190</span></div>
 <div class="item"><span>Mix Veg</span><span>₹160</span></div>
 <div class="item"><span>Malai Kofta</span><span>₹220</span></div>
-<div class="item"><span>Punjabi Dum Aloo</span><span>₹160</span></div>
-<div class="item"><span>Pindi Chana</span><span>₹170</span></div>
-
-</div>
-
-
-<!-- PANEER -->
-
-<div id="paneer" class="menu-section">
-
-<div class="item"><span>Matar Paneer</span><span>₹190</span></div>
-<div class="item"><span>Paneer Tikka Butter Masala</span><span>₹230</span></div>
-<div class="item"><span>Kadhai Paneer</span><span>₹220</span></div>
-<div class="item"><span>Paneer Changezi</span><span>₹230</span></div>
-<div class="item"><span>Shahi Paneer</span><span>₹220</span></div>
-<div class="item"><span>Paneer Bhurji</span><span>₹270</span></div>
-<div class="item"><span>Paneer Lababdar</span><span>₹230</span></div>
-<div class="item"><span>Paneer Butter Masala</span><span>₹220</span></div>
-<div class="item"><span>Paneer Do Pyaza</span><span>₹220</span></div>
-<div class="item"><span>Paneer Pasanda</span><span>₹240</span></div>
-<div class="item"><span>Handi Paneer</span><span>₹220</span></div>
-
-</div>
-
-
-<!-- RICE -->
-
-<div id="rice" class="menu-section">
-
-<div class="item"><span>Veg Biryani</span><span>₹150</span></div>
-<div class="item"><span>Jeera Rice</span><span>₹100</span></div>
-<div class="item"><span>Plain Rice</span><span>₹80</span></div>
-<div class="item"><span>Green Peas Rice</span><span>₹110</span></div>
-<div class="item"><span>Veg Pulao</span><span>₹140</span></div>
-<div class="item"><span>Paneer Tikka Biryani</span><span>₹180</span></div>
-
-</div>
-
-
-<!-- PIZZA -->
-
-<div id="pizza" class="menu-section">
-
-<div class="item"><span>Onion Tomato Pizza</span><span>₹160</span></div>
-<div class="item"><span>Farm Fresh Pizza</span><span>₹180</span></div>
-<div class="item"><span>Margherita Pizza</span><span>₹150</span></div>
-<div class="item"><span>Paneer Tikka Pizza</span><span>₹200</span></div>
 
 </div>
 
@@ -226,13 +254,11 @@ cursor:pointer;
 <div class="item"><span>Vanilla Shake</span><span>₹120</span></div>
 <div class="item"><span>Oreo Shake</span><span>₹130</span></div>
 <div class="item"><span>Mango Shake</span><span>₹120</span></div>
-<div class="item"><span>Butter Scotch Shake</span><span>₹130</span></div>
-<div class="item"><span>Blue Berry Shake</span><span>₹150</span></div>
 
 </div>
 
 
-<!-- NON VEG -->
+<!-- NON VEG CHICKEN CURRIES -->
 
 <div id="nonveg" class="menu-section">
 
