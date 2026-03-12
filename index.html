@@ -12,8 +12,6 @@ font-family:Arial;
 background:#f2f2f2;
 }
 
-/* HEADER */
-
 .topbar{
 background:white;
 padding:15px;
@@ -34,8 +32,6 @@ border:1px solid #ddd;
 font-size:16px;
 }
 
-/* RESTAURANT CARD */
-
 .restaurant-card{
 background:white;
 margin:15px;
@@ -55,8 +51,6 @@ object-fit:cover;
 padding:15px;
 }
 
-/* CATEGORY BUTTONS */
-
 .categories{
 display:flex;
 overflow-x:auto;
@@ -73,8 +67,6 @@ border-radius:20px;
 cursor:pointer;
 white-space:nowrap;
 }
-
-/* CATEGORY POSTERS */
 
 .poster-row{
 display:flex;
@@ -99,8 +91,6 @@ object-fit:cover;
 margin-top:5px;
 font-weight:bold;
 }
-
-/* MENU ITEMS */
 
 .menu-section{
 padding:15px;
@@ -129,7 +119,6 @@ cursor:pointer;
 
 <body>
 
-
 <div id="home">
 
 <div class="topbar">
@@ -157,14 +146,13 @@ cursor:pointer;
 </div>
 
 
+
 <div id="menuPage" style="display:none">
 
 <div class="back" onclick="goHome()">← Back</div>
 
 <h2 style="padding-left:15px">TBC Restaurant Menu</h2>
 
-
-<!-- CATEGORY POSTERS -->
 
 <div class="poster-row">
 
@@ -190,8 +178,6 @@ cursor:pointer;
 
 </div>
 
-
-<!-- CATEGORY BUTTONS -->
 
 <div class="categories">
 
@@ -258,7 +244,7 @@ cursor:pointer;
 </div>
 
 
-<!-- NON VEG CHICKEN CURRIES -->
+<!-- NON-VEG CHICKEN -->
 
 <div id="nonveg" class="menu-section">
 
@@ -305,15 +291,20 @@ cursor:pointer;
 
 </div>
 
-
 </div>
 
 
 <script>
 
 function openMenu(){
+
 document.getElementById("home").style.display="none";
 document.getElementById("menuPage").style.display="block";
+
+/* show biryani automatically */
+
+showCategory("biryani");
+
 }
 
 function goHome(){
