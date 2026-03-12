@@ -1,203 +1,87 @@
-<section class="p-6">
-
-<h2 class="text-3xl font-bold mb-6">TBC Restaurant Menu</h2>
-
-<!-- ROTI -->
-<div class="mb-8">
-<h3 class="text-xl font-semibold mb-3">Roti / Breads</h3>
-
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Tawa Roti</span>
-<span>₹10/12</span>
+<div id="splash" class="h-screen flex items-center justify-center bg-red-500 text-white text-4xl font-bold">
+Datta Dash
 </div>
 
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Plain Roti</span>
-<span>₹12</span>
+<script>
+
+setTimeout(function(){
+
+document.getElementById("splash").style.display="none";
+document.getElementById("home").style.display="block";
+
+},3000)
+
+</script><div id="home" style="display:none" class="p-6 text-center">
+
+<h1 class="text-3xl font-bold mb-4">Welcome to Datta Dash</h1>
+
+<img 
+src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+class="rounded-xl shadow-lg mx-auto w-80">
+
+<h2 class="text-xl mt-4 font-semibold">TBC Restaurant</h2>
+
+<button onclick="openRestaurant()" 
+class="mt-4 bg-red-500 text-white px-6 py-2 rounded">
+
+View Menu
+
+</button>
+
+</div><div id="restaurant" style="display:none" class="p-6">
+
+<h1 class="text-2xl font-bold mb-6">TBC Restaurant Menu</h1>
+
+<!-- NON VEG -->
+<h2 class="text-xl font-semibold mb-3">Non Veg</h2>
+
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
+<span>Butter Chicken</span>
+<span>₹300</span>
 </div>
 
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Butter Roti</span>
-<span>₹14</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Lachha Parantha</span>
-<span>₹35</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Butter Naan</span>
-<span>₹35</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Garlic Naan</span>
-<span>₹70</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Paneer Parantha</span>
-<span>₹80</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Aloo Parantha</span>
-<span>₹70</span>
-</div>
-
-</div>
-</div>
-
-
-<!-- DAL -->
-<div class="mb-8">
-
-<h3 class="text-xl font-semibold mb-3">Dal</h3>
-
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Dal Tadka</span>
-<span>₹140</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Dal Fry</span>
-<span>₹130</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Dal Makhni</span>
-<span>₹200</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Dal Punjabi</span>
-<span>₹220</span>
-</div>
-
-</div>
-</div>
-
-
-<!-- PANEER -->
-<div class="mb-8">
-
-<h3 class="text-xl font-semibold mb-3">Paneer Special</h3>
-
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Matar Paneer</span>
-<span>₹190</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Paneer Butter Masala</span>
-<span>₹220</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Kadhai Paneer</span>
-<span>₹220</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Shahi Paneer</span>
-<span>₹220</span>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- BIRYANI -->
-<div class="mb-8">
-
-<h3 class="text-xl font-semibold mb-3">Biryani</h3>
-
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Veg Biryani</span>
-<span>₹150</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Egg Biryani</span>
-<span>₹150</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Chicken Hyderabadi Biryani</span>
-<span>₹200</span>
-</div>
-
-</div>
-
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
+<span>Kadai Chicken</span>
+<span>₹300</span>
 </div>
 
 
 <!-- BURGERS -->
-<div class="mb-8">
 
-<h3 class="text-xl font-semibold mb-3">Burgers</h3>
+<h2 class="text-xl font-semibold mt-6 mb-3">Burgers</h2>
 
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
 <span>Aloo Tikki Burger</span>
 <span>₹50</span>
 </div>
 
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Veggie Burger</span>
-<span>₹70</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
 <span>Paneer Burger</span>
 <span>₹90</span>
 </div>
 
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Chicken Burger</span>
-<span>₹120</span>
-</div>
-
-</div>
-
-</div>
-
 
 <!-- SHAKES -->
-<div class="mb-8">
 
-<h3 class="text-xl font-semibold mb-3">Shakes</h3>
+<h2 class="text-xl font-semibold mt-6 mb-3">Shakes</h2>
 
-<div class="grid md:grid-cols-2 gap-3">
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
-<span>Kitkat Shake</span>
-<span>₹130</span>
-</div>
-
-<div class="flex justify-between bg-white p-3 rounded shadow">
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
 <span>Oreo Shake</span>
 <span>₹130</span>
 </div>
 
-<div class="flex justify-between bg-white p-3 rounded shadow">
+<div class="bg-white p-3 rounded shadow mb-2 flex justify-between">
 <span>Mango Shake</span>
 <span>₹120</span>
 </div>
 
-</div>
+</div><script>
 
-</div>
+function openRestaurant(){
 
-  </section>
+document.getElementById("home").style.display="none";
+document.getElementById("restaurant").style.display="block";
+
+}
+
+</script>
