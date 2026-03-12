@@ -315,56 +315,53 @@ document.getElementById(id).style.display="block"
 </script>
   <script>
 
-const AIRTABLE_TOKEN = "patEb5XxCJTQNlj19.fd77e12a0b42a93092bb4bedbb8617625858e1a6edc93853f2a6355e32a968d3";
+const AIRTABLE_TOKEN = "PASTE_YOUR_FULL_TOKEN_HERE";
 const BASE_ID = "app0etZ4X20UmSYUj";
-const TABLE_NAME = "Menu Items"; 
+const TABLE_NAME = "Menu Items";
 
 async function loadMenu() {
 
-const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}`;
+  const url = `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(TABLE_NAME)}`;
 
-const response = await fetch(url,{
-headers:{
-Authorization:`Bearer ${AIRTABLE_TOKEN}`
-}
-});
+  const response = await fetch(url,{
+    headers:{
+      Authorization:`Bearer ${AIRTABLE_TOKEN}`
+    }
+  });
 
-const data = await response.json();
+  const data = await response.json();
 
-displayMenu(data.records);
+  displayMenu(data.records);
 
 }
 
 function displayMenu(items){
 
-const container = document.getElementById("menu-container");
+  const container = document.getElementById("menu-container");
 
-container.innerHTML = "";
+  container.innerHTML = "";
 
-items.forEach(item => {
+  items.forEach(item => {
 
-const name = item.fields.Name || "Item";
-const price = item.fields.Price || "";
-const category = item.fields.Category || "";
-const image = item.fields.Image ? item.fields.Image[0].url : "";
+    const name = item.fields.Name || "Item";
+    const price = item.fields.Price || "";
+    const category = item.fields.Category || "";
+    const image = item.fields.Image ? item.fields.Image[0].url : "";
 
-const card = document.createElement("div");
-card.className = "menu-card";
+    const card = document.createElement("div");
+    card.className = "menu-card";
 
-card.innerHTML = `
-<img src="${image}" class="menu-image">
-<h3>${name}</h3>
-<p>₹${price}</p>
-<small>${category}</small>
-`;
+    card.innerHTML = `
+      <img src="${image}" class="menu-image">
+      <h3>${name}</h3>
+      <p>₹${price}</p>
+      <small>${category}</small>
+    `;
 
-container.appendChild(card);
+    container.appendChild(card);
 
-});
+  });
 
 }
 
 loadMenu();
-
-  </script>
-
