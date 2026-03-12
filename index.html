@@ -1,159 +1,104 @@
-<div id="splash" class="splash-screen">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><div class="topbar">
 
-<div class="logo-circle">
-Datta Dash
-</div>
+<h1 class="logo">Datta Dash</h1>
 
-<p class="subtitle">Welcome to Datta Dash</p>
+<input 
+type="text"
+placeholder="Search for restaurants or dishes">
 
-</div><style>
-
-body{
-margin:0;
-font-family:sans-serif;
-}
-
-.splash-screen{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:#fc8019;
-color:white;
-}
-
-.logo-circle{
-width:200px;
-height:200px;
-border-radius:50%;
-background:white;
-color:#fc8019;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-font-weight:bold;
-}
-
-.subtitle{
-margin-top:20px;
-font-size:20px;
-}
-
-</style><script>
-
-setTimeout(()=>{
-
-document.getElementById("splash").style.display="none";
-document.getElementById("home").style.display="block";
-
-},3000)
-
-</script><div id="home" style="display:none">
-
-<!-- top bar -->
-
-<div class="topbar">
-
-<h2>Datta Dash</h2>
-
-<input type="text" placeholder="Search food or restaurants">
-
-</div>
-
-
-<!-- restaurant cards -->
-
-<div class="restaurant-list">
-
-
-<div class="card" onclick="openRestaurant()">
-
-<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-
-<h3>TBC Restaurant</h3>
-
-<p>North Indian • Chinese • Biryani</p>
-
-</div>
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
-
-<h3>Burger Hub</h3>
-
-<p>Burgers • Fast Food</p>
-
-</div>
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd">
-
-<h3>Green Veg Kitchen</h3>
-
-<p>Pure Veg</p>
-
-</div>
-
-</div>
-
-</div><style>
-
-.topbar{
-background:white;
-padding:15px;
+</div>.topbar{
 position:sticky;
 top:0;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+background:white;
+padding:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
 }
 
 .topbar input{
 width:100%;
-padding:10px;
 margin-top:10px;
-border-radius:8px;
+padding:12px;
+border-radius:10px;
 border:1px solid #ddd;
-}
+font-size:16px;
+}<div class="restaurant-card" onclick="openRestaurant()">
 
-.restaurant-list{
-padding:15px;
-}
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
 
-.card{
+<div class="restaurant-info">
+
+<h2>Shiv Shakti Dhaba</h2>
+
+<p>⭐ 3.5 • North Indian • ₹250 for two</p>
+
+<p class="time">40-45 mins</p>
+
+</div>
+
+</div>.restaurant-card{
 background:white;
-border-radius:12px;
-margin-bottom:20px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+border-radius:16px;
+margin:15px;
 overflow:hidden;
-cursor:pointer;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-.card img{
+.restaurant-card img{
 width:100%;
 height:180px;
 object-fit:cover;
 }
 
-.card h3{
-margin:10px;
+.restaurant-info{
+padding:15px;
 }
 
-.card p{
-margin:0 10px 10px;
-color:gray;
+.restaurant-info h2{
+font-size:20px;
+margin-bottom:6px;
 }
 
-</style><script>
+.time{
+color:#666;
+font-size:14px;
+}function openRestaurant(){
 
-function openRestaurant(){
+window.location.href="restaurant.html"
 
-window.location="#menu"
+}Non Veg
+Burgers
+Shakes
+Pizza
+Chinese<h2>Non Veg</h2>
 
-}
+<div class="menu-item">
 
-</script>
+<span>Butter Chicken</span>
+
+<span>₹300</span>
+
+</div>
+
+
+<h2>Burgers</h2>
+
+<div class="menu-item">
+
+<span>Paneer Burger</span>
+
+<span>₹90</span>
+
+</div>Datta Dash
+   ↓
+Restaurant List
+   ↓
+Restaurant Page
+   ↓
+Menu Items
+   ↓
+Cart
